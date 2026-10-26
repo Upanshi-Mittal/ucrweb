@@ -37,10 +37,14 @@ const Sac=()=>{
         )
         light.position.set(2, 3, 4)
         scene.add(light)
-        const sizes = {
-            width: window.innerWidth,
-            height: 550,
-        }
+        const getSizes = () => {
+            const parent = canvas.parentElement;
+            return {
+                width: parent && parent.clientWidth > 0 ? parent.clientWidth : window.innerWidth,
+                height: parent && parent.clientHeight > 0 ? parent.clientHeight : window.innerHeight
+            };
+        };
+        const sizes = getSizes();
         const camera = new THREE.PerspectiveCamera(
             75,
             sizes.width / sizes.height,
@@ -60,6 +64,7 @@ const Sac=()=>{
         controls.minPolarAngle = Math.PI / 2
         controls.maxPolarAngle = Math.PI / 2
         controls.enablePan = false
+        controls.enableZoom = false
         const renderer = new THREE.WebGLRenderer({
             canvas: canvas,
             antialias: true
@@ -73,8 +78,9 @@ const Sac=()=>{
             Math.min(window.devicePixelRatio, 2)
         )
         const handleResize = () => {
-            sizes.width = window.innerWidth
-            sizes.height = sizes.height
+            const newSizes = getSizes();
+            sizes.width = newSizes.width;
+            sizes.height = newSizes.height;
             camera.aspect =
                 sizes.width / sizes.height
             camera.updateProjectionMatrix()
@@ -136,7 +142,7 @@ const Sac=()=>{
     return (
         <canvas
             ref={canvasRef}
-            className="webgl"
+            className="webgl block w-full h-full outline-none"
         />
     )
 }
