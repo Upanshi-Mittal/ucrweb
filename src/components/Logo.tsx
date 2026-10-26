@@ -7,14 +7,14 @@ const Logo = () => {
   return (
     <motion.div
       whileHover={{ scale: 1.1 }}
-      className="relative w-12 h-12 rounded-xl p-1 bg-gradient-to-br from-violet-500 to-electric-500 shadow-lg"
+      className="relative w-12 h-12 rounded-xl p-1 shadow-lg"
     >
       {/* Static SVG Image */}
       <img src={logo} alt="μCR Logo" 
       />
 
       {/* Optional: Glow animation effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-violet-500 to-electric-500 opacity-40 blur-lg rounded-xl animate-pulse-glow pointer-events-none"></div>
+      <div className="absolute inset-0 opacity-40 blur-lg rounded-xl pointer-events-none"></div>
     </motion.div>
   );
 };
