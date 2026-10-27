@@ -27,10 +27,12 @@ function Home() {
     return (
         <main className="w-full flex flex-col min-h-screen">
             {/* 3D Lab Tour / Hero Section */}
-            <section id="hero" className="relative w-full h-[75vh] overflow-hidden z-10">
+            <section id="hero" className="relative w-full h-screen overflow-hidden z-10">
                 <Sac />
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none select-none z-20 flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 bg-black/50 backdrop-blur-md text-xs sm:text-sm text-white tracking-wide shadow-xl">
-                    <span>↔ Drag horizontally to look around</span>
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none select-none z-20 flex flex-col items-center gap-2">
+                    <div className="flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-black bg-white/95 text-black backdrop-blur-md text-xs sm:text-sm font-semibold tracking-wide shadow-xl">
+                        <span>↔ Drag horizontally to look around</span>
+                    </div>
                 </div>
             </section>
             <section id="impact" ref={statsRef} className="relative z-10 w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-t">
@@ -43,29 +45,40 @@ function Home() {
                             Empowering innovators, competing at the highest levels, and building a community that lasts.
                         </p>
                     </div>
-                    <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                    <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
                         {stats.map((stat, index) => (
                             <motion.div
                                 key={stat.label}
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={statsInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                                className="flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-300 hover:-translate-y-1 group"
+                                className="relative group"
                             >
                                 <div
-                                    className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 shadow-sm ${iconColors[stat.iconcol] || ""}`}
-                                >
-                                    <stat.icon className="w-8 h-8 text-white" />
-                                </div>
-                                <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-2">
-                                    {statsInView ? (
-                                        <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                                    ) : (
-                                        <span>0{stat.suffix}</span>
-                                    )}
-                                </div>
-                                <div className="text-sm sm:text-base font-medium text-center tracking-wide">
-                                    {stat.label}
+                                    className="absolute inset-0 rounded-2xl border-2 border-black translate-x-3 translate-y-3 transition-transform duration-300 group-hover:translate-x-4 group-hover:translate-y-4"
+                                    style={{
+                                        backgroundColor: '#facc15',
+                                        backgroundImage: 'repeating-linear-gradient(45deg, #000 0, #000 2.5px, transparent 0, transparent 9px)',
+                                    }}
+                                />
+
+                                {/* Foreground Impact Card with White Background */}
+                                <div className="relative z-10 flex flex-col items-center justify-center p-6 rounded-2xl border-2 border-black bg-white text-black transition-all duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 shadow-lg">
+                                    <div
+                                        className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 shadow-sm ${iconColors[stat.iconcol] || ""}`}
+                                    >
+                                        <stat.icon className="w-8 h-8 text-white" />
+                                    </div>
+                                    <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-2 text-black">
+                                        {statsInView ? (
+                                            <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                                        ) : (
+                                            <span>0{stat.suffix}</span>
+                                        )}
+                                    </div>
+                                    <div className="text-sm sm:text-base font-bold text-center tracking-wide text-neutral-800">
+                                        {stat.label}
+                                    </div>
                                 </div>
                             </motion.div>
                         ))}

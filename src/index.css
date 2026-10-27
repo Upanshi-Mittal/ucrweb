@@ -3,3 +3,18 @@
 * {
   box-sizing: border-box;
 }
+
+html {
+  background-color: #f5f0e4;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f5f0e4;
+  background-image: 
+    linear-gradient(to right, rgba(45, 75, 85, 0.11) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(45, 75, 85, 0.11) 1px, transparent 1px);
+  background-size: 18px 18px;
+  color: #111827;
+}

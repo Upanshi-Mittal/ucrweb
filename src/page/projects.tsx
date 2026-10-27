@@ -388,27 +388,38 @@ const Projects: React.FC = () => {
             {/* Impact / Stats Section */}
             <section ref={statsRef} className="py-12 border-y border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                         {projectStats.map((stat, index) => (
                             <motion.div
                                 key={stat.label}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={statsInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                                className="p-6 rounded-2xl border border-gray-800 flex flex-col items-center text-center transition-all duration-300 hover:border-violet-500/40"
+                                className="relative group"
                             >
-                                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 border ${stat.color}`}>
-                                    <stat.icon className="w-6 h-6" />
-                                </div>
-                                <div className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-1">
-                                    {statsInView ? (
-                                        <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                                    ) : (
-                                        <span>0{stat.suffix}</span>
-                                    )}
-                                </div>
-                                <div className="text-xs sm:text-sm font-medium tracking-wide">
-                                    {stat.label}
+                                {/* Yellow 3D offset background box with diagonal lines */}
+                                <div
+                                    className="absolute inset-0 rounded-2xl border-2 border-black translate-x-2.5 translate-y-2.5 transition-transform duration-300 "
+                                    style={{
+                                        backgroundImage: 'repeating-linear-gradient(45deg, #000 0, #000 2.5px, transparent 0, transparent 9px)',
+                                    }}
+                                />
+
+                                {/* Foreground Impact Card with White Background */}
+                                <div className="relative z-10 p-6 rounded-2xl border-2 border-black bg-white text-black flex flex-col items-center text-center transition-all duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 shadow-lg">
+                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 border ${stat.color}`}>
+                                        <stat.icon className="w-6 h-6" />
+                                    </div>
+                                    <div className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-1 text-black">
+                                        {statsInView ? (
+                                            <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                                        ) : (
+                                            <span>0{stat.suffix}</span>
+                                        )}
+                                    </div>
+                                    <div className="text-xs sm:text-sm font-bold tracking-wide text-neutral-800">
+                                        {stat.label}
+                                    </div>
                                 </div>
                             </motion.div>
                         ))}
