@@ -320,16 +320,16 @@ const categoryFilters = [
 ];
 
 const categoryBadgeStyles: Record<string, string> = {
-    autonomous: 'bg-violet-500/15 text-violet-300 border-violet-500/30',
-    iot: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
-    assistive: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
-    aerial: 'bg-teal-500/15 text-teal-300 border-teal-500/30',
+    autonomous: 'bg-blue-600/20 text-blue-500 border-blue-500',
+    iot: 'bg-yellow-500/15 text-yellow-600 border-yellow-500',
+    assistive: 'bg-green-500/15 text-green-600 border-green-500',
+    aerial: 'bg-red-500/15 text-red-500 border-red-500',
 };
 
 const statusBadgeStyles: Record<string, string> = {
-    Flagship: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
-    Completed: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
-    Ongoing: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
+    Flagship: 'bg-amber-500/15 text-yellow-500 border-amber-500',
+    Completed: 'bg-emerald-500/15 text-green-500 border-green-500',
+    Ongoing: 'bg-purple-500/15 text-purple-500 border-purple-500',
 };
 
 const Projects: React.FC = () => {
@@ -362,7 +362,6 @@ const Projects: React.FC = () => {
 
     return (
         <div className="pt-16 min-h-screen flex flex-col">
-            {/* Hero Section */}
             <section className="py-20 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <motion.div
@@ -371,12 +370,9 @@ const Projects: React.FC = () => {
                         transition={{ duration: 0.8 }}
                         className="text-center space-y-6"
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 text-xs sm:text-sm font-medium text-violet-400">
-                            <Sparkles className="w-4 h-4 text-violet-400" />
-                            <span>μCR Engineering & Hardware Showcase</span>
-                        </div>
+                        
                         <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-                            Our <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">Projects</span>
+                            Our Projects
                         </h1>
                         <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed">
                             From agile autonomous rovers and IoT telemetry hubs to assistive wearable devices — explore the custom hardware, circuit architectures, and intelligent firmware built by μCR members.
@@ -385,30 +381,38 @@ const Projects: React.FC = () => {
                 </div>
             </section>
 
-            {/* Impact / Stats Section */}
             <section ref={statsRef} className="py-12 border-y border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                         {projectStats.map((stat, index) => (
                             <motion.div
                                 key={stat.label}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={statsInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                                className="p-6 rounded-2xl border border-gray-800 flex flex-col items-center text-center transition-all duration-300 hover:border-violet-500/40"
+                                className="relative group"
                             >
-                                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 border ${stat.color}`}>
-                                    <stat.icon className="w-6 h-6" />
-                                </div>
-                                <div className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-1">
-                                    {statsInView ? (
-                                        <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                                    ) : (
-                                        <span>0{stat.suffix}</span>
-                                    )}
-                                </div>
-                                <div className="text-xs sm:text-sm font-medium tracking-wide">
-                                    {stat.label}
+                                <div
+                                    className="absolute inset-0 rounded-2xl border-2 bg-yellow-400 translate-x-2.5 translate-y-2.5 transition-transform duration-300 "
+                                    style={{
+                                        backgroundImage: 'repeating-linear-gradient(45deg, #000 0, #000 2.5px, transparent 0, transparent 9px)',
+                                    }}
+                                />
+
+                                <div className="relative z-10 p-6 rounded-2xl border-2 bg-white backdrop-blur-md  text-black flex flex-col items-center text-center transition-all duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 shadow-lg">
+                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 border ${stat.color}`}>
+                                        <stat.icon className="w-6 h-6" />
+                                    </div>
+                                    <div className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-1 text-black">
+                                        {statsInView ? (
+                                            <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                                        ) : (
+                                            <span>0{stat.suffix}</span>
+                                        )}
+                                    </div>
+                                    <div className="text-xs sm:text-sm font-bold tracking-wide text-neutral-800">
+                                        {stat.label}
+                                    </div>
                                 </div>
                             </motion.div>
                         ))}
@@ -416,11 +420,9 @@ const Projects: React.FC = () => {
                 </div>
             </section>
 
-            {/* Controls Section: Search & Category Filter */}
             <section className="py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
-                        {/* Search Bar */}
                         <div className="relative w-full md:w-80">
                             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                             <input
@@ -428,7 +430,7 @@ const Projects: React.FC = () => {
                                 placeholder="Search by name, MCU, tech..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-700 bg-gray-900/60 text-sm focus:outline-none focus:border-violet-500 transition-colors placeholder:text-gray-500"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm focus:outline-none transition-colors placeholder:text-gray-500"
                             />
                             {searchQuery && (
                                 <button
@@ -440,7 +442,6 @@ const Projects: React.FC = () => {
                             )}
                         </div>
 
-                        {/* Category Filter Pills */}
                         <div className="flex flex-wrap items-center justify-center gap-2">
                             <div className="hidden lg:flex items-center text-gray-400 text-sm mr-2">
                                 <Filter className="w-4 h-4 mr-1.5" />
@@ -460,8 +461,8 @@ const Projects: React.FC = () => {
                                         onClick={() => setSelectedCategory(tab.id)}
                                         className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2 border ${
                                             isSelected
-                                                ? 'bg-gradient-to-r from-violet-500 to-indigo-600 text-white border-violet-400/50 shadow-lg shadow-violet-500/20'
-                                                : 'border-gray-800 hover:border-gray-700 text-gray-300 hover:text-white'
+                                                ? 'bg-blue-500 text-white border-violet-400/50 shadow-lg shadow-violet-500/20'
+                                                : ' hover:text-blue-500 border-2'
                                         }`}
                                     >
                                         <span>{tab.name}</span>
@@ -478,14 +479,12 @@ const Projects: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Results Count Notification */}
                     {searchQuery && (
-                        <p className="text-sm text-gray-400 mb-6">
+                        <p className="text-sm mb-6">
                             Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'} matching "{searchQuery}"
                         </p>
                     )}
 
-                    {/* Projects Grid */}
                     {filteredProjects.length === 0 ? (
                         <div className="text-center py-20 border border-gray-800 rounded-3xl p-8">
                             <Cpu className="w-12 h-12 mx-auto text-gray-600 mb-4 animate-pulse" />
@@ -515,15 +514,14 @@ const Projects: React.FC = () => {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: index * 0.06, duration: 0.5 }}
-                                        className="group rounded-2xl border border-gray-800 hover:border-violet-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1"
+                                        className="group rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md"
                                     >
                                         <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-5">
                                             <div>
-                                                {/* Header Badges */}
                                                 <div className="flex items-center justify-between gap-2 mb-4">
                                                     <span
                                                         className={`px-3 py-1 rounded-full text-xs font-medium border ${
-                                                            categoryBadgeStyles[project.category] || 'bg-gray-800 text-gray-300 border-gray-700'
+                                                            categoryBadgeStyles[project.category] || 'bg-gray-800 border-gray-700'
                                                         }`}
                                                     >
                                                         {project.categoryLabel}
@@ -538,40 +536,37 @@ const Projects: React.FC = () => {
                                                     </span>
                                                 </div>
 
-                                                {/* Icon & Title */}
                                                 <div className="flex items-start gap-4 mb-3">
-                                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-violet-500/20 bg-violet-500/10 text-violet-400 group-hover:scale-105 group-hover:bg-violet-500 group-hover:text-white transition-all duration-300">
+                                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-red-500 bg-red-500/20 text-red-400 group-hover:scale-105 group-hover:bg-red-300 group-hover:text-white transition-all duration-300">
                                                         <IconComponent className="w-6 h-6" />
                                                     </div>
                                                     <div>
-                                                        <h3 className="text-xl font-bold leading-snug group-hover:text-violet-400 transition-colors">
+                                                        <h3 className="text-xl font-bold leading-snug transition-colors">
                                                             {project.title}
                                                         </h3>
-                                                        <p className="text-xs text-violet-400/90 font-medium mt-1">
+                                                        <p className="text-xs text-black-400 font-medium mt-1">
                                                             {project.mcu}
                                                         </p>
                                                     </div>
                                                 </div>
 
-                                                {/* Description */}
-                                                <p className="text-sm leading-relaxed text-gray-300 line-clamp-3 mb-4">
+                                                <p className="text-sm leading-relaxed line-clamp-3 mb-4">
                                                     {project.shortDescription}
                                                 </p>
                                             </div>
 
-                                            {/* Tech Stack Chips */}
                                             <div>
                                                 <div className="flex flex-wrap gap-1.5 mb-5">
                                                     {project.techStack.slice(0, 4).map((tech) => (
                                                         <span
                                                             key={tech}
-                                                            className="px-2.5 py-1 rounded-lg text-xs bg-gray-800/80 text-gray-300 border border-gray-700/60"
+                                                            className="px-2.5 py-1 rounded-lg text-xs  border-2 "
                                                         >
                                                             {tech}
                                                         </span>
                                                     ))}
                                                     {project.techStack.length > 4 && (
-                                                        <span className="px-2 py-1 rounded-lg text-xs bg-gray-800/50 text-gray-400 border border-gray-800">
+                                                        <span className="px-2 py-1 rounded-lg text-xs border bg-blue-500/70">
                                                             +{project.techStack.length - 4}
                                                         </span>
                                                     )}
@@ -581,7 +576,7 @@ const Projects: React.FC = () => {
                                                 <div className="pt-4 border-t border-gray-800 flex items-center justify-between gap-3">
                                                     <button
                                                         onClick={() => setActiveProject(project)}
-                                                        className="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-medium bg-gray-800 hover:bg-violet-600 hover:text-white text-gray-200 transition-all duration-200 flex items-center justify-center gap-1.5 group/btn"
+                                                        className="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-medium border-2 bg-blue-500/70 hover:bg-blue-500  group-hover:border-black hover:text-white transition-all duration-200 flex items-center justify-center gap-1.5 group/btn active:translate-x-0 active:translate-y-0 active:shadow-none"
                                                     >
                                                         <span>View Architecture</span>
                                                         <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
@@ -592,7 +587,7 @@ const Projects: React.FC = () => {
                                                             href={project.github}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="w-10 h-10 rounded-xl border border-gray-700 flex items-center justify-center text-gray-300 hover:text-white hover:border-violet-500 hover:bg-violet-500/10 transition-colors shrink-0"
+                                                            className="w-10 h-10 rounded-xl border  flex items-center justify-center   transition-colors shrink-0"
                                                             aria-label="GitHub Repository"
                                                         >
                                                             <FaGithub className="w-4 h-4" />
@@ -784,24 +779,22 @@ const Projects: React.FC = () => {
                         className="space-y-6"
                     >
                         <h2 className="text-3xl md:text-5xl font-bold">
-                            Have an Idea?{' '}
-                            <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
-                                Build With μCR
-                            </span>
+                            Have an Idea? Build With μCR
+                            
                         </h2>
-                        <p className="text-base sm:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
+                        <p className="text-base sm:text-xl leading-relaxed max-w-2xl mx-auto">
                             Whether you want to construct an autonomous rover, explore sensor fusion, or manufacture custom PCB micro-controllers, our hub provides the components, equipment, and peer mentorship you need.
                         </p>
                         <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                             <Link
                                 to="/contact"
-                                className="px-8 py-3.5 bg-gradient-to-r from-violet-500 to-indigo-600 hover:from-violet-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-violet-500/25 transition-all duration-300 hover:scale-105"
+                                className="px-8 py-3.5 border-2 border-black text-black-500 bg-blue-500/70 backdrop-blur-md hover:bg-blue-500 hover:text-white font-semibold rounded-xl shadow-lg shadow-violet-500/25 transition-all duration-300 hover:scale-105"
                             >
                                 Submit a Project Pitch
                             </Link>
                             <Link
                                 to="/knowledge"
-                                className="px-8 py-3.5 border border-gray-700 hover:border-violet-500 rounded-xl font-medium text-gray-300 hover:text-white transition-all duration-300"
+                                className="px-8 py-3.5 border-2 rounded-xl font-medium hover:bg-blue-500/70 transition-all duration-300"
                             >
                                 Browse Knowledge Hub
                             </Link>
@@ -810,7 +803,6 @@ const Projects: React.FC = () => {
                 </div>
             </section>
 
-            {/* Page Footer */}
             <Footer />
         </div>
     );
