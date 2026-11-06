@@ -9,7 +9,6 @@ import Footer from "../components/Footer"
 function Home() {
     const [statsRef, statsInView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
-    // Icon color mapping kept intact for your custom color styling
     const iconColors: Record<string, string> = {
         red: "bg-red-500",
         green: "bg-green-500",
@@ -26,7 +25,6 @@ function Home() {
 
     return (
         <main className="w-full flex flex-col min-h-screen">
-            {/* 3D Lab Tour / Hero Section */}
             <section id="hero" className="relative w-full h-screen overflow-hidden z-10">
                 <Sac />
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none select-none z-30 flex flex-col items-center gap-2">

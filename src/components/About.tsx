@@ -75,7 +75,7 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="p-6 rounded-lg border border-gray-700 hover:border-violet-500/50 transition-all duration-300 group"
+                className="p-6 rounded-lg border-2 transition-all backdrop-blur-md duration-300 group"
               >
                 <div className="flex items-start space-x-4">
                   <div className="p-3 bg-black rounded-lg group-hover:scale-110 transition-transform duration-300">

@@ -320,16 +320,16 @@ const categoryFilters = [
 ];
 
 const categoryBadgeStyles: Record<string, string> = {
-    autonomous: 'bg-blue-600/20 text-blue-500 border-blue-500/30',
-    iot: 'bg-yellow-500/15 text-yellow-600 border-yellow-500/30',
-    assistive: 'bg-green-500/15 text-green-600 border-green-500/30',
-    aerial: 'bg-red-500/15 text-red-500 border-red-500/30',
+    autonomous: 'bg-blue-600/20 text-blue-500 border-blue-500',
+    iot: 'bg-yellow-500/15 text-yellow-600 border-yellow-500',
+    assistive: 'bg-green-500/15 text-green-600 border-green-500',
+    aerial: 'bg-red-500/15 text-red-500 border-red-500',
 };
 
 const statusBadgeStyles: Record<string, string> = {
-    Flagship: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
-    Completed: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
-    Ongoing: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
+    Flagship: 'bg-amber-500/15 text-yellow-500 border-amber-500',
+    Completed: 'bg-emerald-500/15 text-green-500 border-green-500',
+    Ongoing: 'bg-purple-500/15 text-purple-500 border-purple-500',
 };
 
 const Projects: React.FC = () => {
@@ -370,10 +370,7 @@ const Projects: React.FC = () => {
                         transition={{ duration: 0.8 }}
                         className="text-center space-y-6"
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs sm:text-sm font-medium ">
-                            <Sparkles className="w-4 h-4" />
-                            <span>μCR Engineering & Hardware Showcase</span>
-                        </div>
+                        
                         <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
                             Our Projects
                         </h1>
@@ -396,13 +393,13 @@ const Projects: React.FC = () => {
                                 className="relative group"
                             >
                                 <div
-                                    className="absolute inset-0 rounded-2xl border-2 border-black translate-x-2.5 translate-y-2.5 transition-transform duration-300 "
+                                    className="absolute inset-0 rounded-2xl border-2 bg-yellow-400 translate-x-2.5 translate-y-2.5 transition-transform duration-300 "
                                     style={{
                                         backgroundImage: 'repeating-linear-gradient(45deg, #000 0, #000 2.5px, transparent 0, transparent 9px)',
                                     }}
                                 />
 
-                                <div className="relative z-10 p-6 rounded-2xl border-2 border-black bg-white text-black flex flex-col items-center text-center transition-all duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 shadow-lg">
+                                <div className="relative z-10 p-6 rounded-2xl border-2 bg-white backdrop-blur-md  text-black flex flex-col items-center text-center transition-all duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 shadow-lg">
                                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 border ${stat.color}`}>
                                         <stat.icon className="w-6 h-6" />
                                     </div>
@@ -426,7 +423,6 @@ const Projects: React.FC = () => {
             <section className="py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
-                        {/* Search Bar */}
                         <div className="relative w-full md:w-80">
                             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                             <input
@@ -466,7 +462,7 @@ const Projects: React.FC = () => {
                                         className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2 border ${
                                             isSelected
                                                 ? 'bg-blue-500 text-white border-violet-400/50 shadow-lg shadow-violet-500/20'
-                                                : ' hover:text-red-500'
+                                                : ' hover:text-blue-500 border-2'
                                         }`}
                                     >
                                         <span>{tab.name}</span>
@@ -484,7 +480,7 @@ const Projects: React.FC = () => {
                     </div>
 
                     {searchQuery && (
-                        <p className="text-sm text-gray-400 mb-6">
+                        <p className="text-sm mb-6">
                             Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'} matching "{searchQuery}"
                         </p>
                     )}
@@ -518,7 +514,7 @@ const Projects: React.FC = () => {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: index * 0.06, duration: 0.5 }}
-                                        className="group rounded-2xl border hover:border-blue-500 transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1"
+                                        className="group rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md"
                                     >
                                         <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-5">
                                             <div>
@@ -541,11 +537,11 @@ const Projects: React.FC = () => {
                                                 </div>
 
                                                 <div className="flex items-start gap-4 mb-3">
-                                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-red-500 bg-red-500/20 text-red-400 group-hover:scale-105 group-hover:bg-red-500 group-hover:text-white transition-all duration-300">
+                                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-red-500 bg-red-500/20 text-red-400 group-hover:scale-105 group-hover:bg-red-300 group-hover:text-white transition-all duration-300">
                                                         <IconComponent className="w-6 h-6" />
                                                     </div>
                                                     <div>
-                                                        <h3 className="text-xl font-bold leading-snug group-hover:text-violet-400 transition-colors">
+                                                        <h3 className="text-xl font-bold leading-snug transition-colors">
                                                             {project.title}
                                                         </h3>
                                                         <p className="text-xs text-black-400 font-medium mt-1">
@@ -554,25 +550,23 @@ const Projects: React.FC = () => {
                                                     </div>
                                                 </div>
 
-                                                {/* Description */}
                                                 <p className="text-sm leading-relaxed line-clamp-3 mb-4">
                                                     {project.shortDescription}
                                                 </p>
                                             </div>
 
-                                            {/* Tech Stack Chips */}
                                             <div>
                                                 <div className="flex flex-wrap gap-1.5 mb-5">
                                                     {project.techStack.slice(0, 4).map((tech) => (
                                                         <span
                                                             key={tech}
-                                                            className="px-2.5 py-1 rounded-lg text-xs bg-gray-800/80 text-gray-300 border border-gray-700/60"
+                                                            className="px-2.5 py-1 rounded-lg text-xs  border-2 "
                                                         >
                                                             {tech}
                                                         </span>
                                                     ))}
                                                     {project.techStack.length > 4 && (
-                                                        <span className="px-2 py-1 rounded-lg text-xs bg-gray-800/50 text-gray-400 border border-gray-800">
+                                                        <span className="px-2 py-1 rounded-lg text-xs border bg-blue-500/70">
                                                             +{project.techStack.length - 4}
                                                         </span>
                                                     )}
@@ -582,7 +576,7 @@ const Projects: React.FC = () => {
                                                 <div className="pt-4 border-t border-gray-800 flex items-center justify-between gap-3">
                                                     <button
                                                         onClick={() => setActiveProject(project)}
-                                                        className="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-medium bg-gray-800 hover:bg-violet-600 hover:text-white text-gray-200 transition-all duration-200 flex items-center justify-center gap-1.5 group/btn"
+                                                        className="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-medium border-2 bg-blue-500/70 hover:bg-blue-500  group-hover:border-black hover:text-white transition-all duration-200 flex items-center justify-center gap-1.5 group/btn active:translate-x-0 active:translate-y-0 active:shadow-none"
                                                     >
                                                         <span>View Architecture</span>
                                                         <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
@@ -593,7 +587,7 @@ const Projects: React.FC = () => {
                                                             href={project.github}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="w-10 h-10 rounded-xl border border-gray-700 flex items-center justify-center text-gray-300 hover:text-white hover:border-violet-500 hover:bg-violet-500/10 transition-colors shrink-0"
+                                                            className="w-10 h-10 rounded-xl border  flex items-center justify-center   transition-colors shrink-0"
                                                             aria-label="GitHub Repository"
                                                         >
                                                             <FaGithub className="w-4 h-4" />
@@ -794,13 +788,13 @@ const Projects: React.FC = () => {
                         <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                             <Link
                                 to="/contact"
-                                className="px-8 py-3.5 bg-yellow-500 hover:from-violet-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-violet-500/25 transition-all duration-300 hover:scale-105"
+                                className="px-8 py-3.5 border-2 border-black text-black-500 bg-blue-500/70 backdrop-blur-md hover:bg-blue-500 hover:text-white font-semibold rounded-xl shadow-lg shadow-violet-500/25 transition-all duration-300 hover:scale-105"
                             >
                                 Submit a Project Pitch
                             </Link>
                             <Link
                                 to="/knowledge"
-                                className="px-8 py-3.5 border rounded-xl font-medium hover:text-white transition-all duration-300"
+                                className="px-8 py-3.5 border-2 rounded-xl font-medium hover:bg-blue-500/70 transition-all duration-300"
                             >
                                 Browse Knowledge Hub
                             </Link>

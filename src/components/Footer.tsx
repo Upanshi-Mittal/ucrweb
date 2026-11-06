@@ -87,8 +87,8 @@ const Footer = () => {
             transition={{ delay: 0.2 }}
             className="space-y-4"
           >
-            <h3 className="text-lg font-semibold text-white">Connect With Us</h3>
-            <div className="text-sm text-gray-400">
+            <h3 className="text-lg font-semibold">Connect With Us</h3>
+            <div className="text-sm">
               <p>Join our community of passionate robotics enthusiasts and be part of the innovation revolution.</p>
             </div>
             <div className="flex space-x-4">
@@ -129,7 +129,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-12 h-12 bg-gradient-to-br ${social.color} rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300`}
+                  className={`w-12 h-12 border-2 bg-gradient-to-br ${social.color} rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300`}
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -140,7 +140,7 @@ const Footer = () => {
           
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
+        <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm ">
           <p>&copy; 2026 μCR - Microcontroller-Based Systems and Robotics Hub. All rights reserved.</p>
          <p>Developed by <a href="https://www.linkedin.com/in/anshulsingh27" target="_blank" rel="noopener noreferrer">🌼</a></p>
         </div>

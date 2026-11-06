@@ -275,7 +275,7 @@ const Team = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05, duration: 0.6 }}
-        className="rounded-lg overflow-hidden border p-2 transition-all duration-300 group bg-black opacity-20"
+        className="group rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md"
     >
         <div className="aspect-square relative overflow-hidden ">
             <img
@@ -333,30 +333,29 @@ const Team = () => {
 
         <div className="p-6 h-[260px] flex flex-col justify-between space-y-3">
             <div>
-                <h3 className="text-lg font-semibold text-white group-hover:text-violet-400 transition-colors duration-300">
+                <h3 className="text-lg font-semibold  group-hover:text-violet-400 transition-colors duration-300">
                     {member.name}
                 </h3>
                 <p className="text-blue-400 font-medium text-sm">{member.role}</p>
 
                 {member.branch && (
-                    <div className="text-sm text-gray-400 mt-1">
+                    <div className="text-sm  mt-1">
                         <p>{member.branch}</p>
                     </div>
                 )}
 
-                <p className="text-gray-400 text-xs leading-relaxed mt-2">{member.bio}</p>
+                <p className=" text-xs leading-relaxed mt-2">{member.bio}</p>
             </div>
 
-            {/* Badge pinned at the bottom */}
             <div>
-                <span className={`px-3 py-1 rounded-full text-xs font-medium ${member.category === 'faculty' ? 'bg-cyan-500/20 text-cyan-400' :
-                        member.category === 'leadership' ? 'bg-violet-500/20 text-violet-400' :
-                            member.category === 'tech' ? 'bg-red-500/20 text-red-400' :
-                                member.category === 'finance' ? 'bg-green-500/20 text-green-400' :
-                                    member.category === 'management' ? 'bg-blue-500/20 text-blue-400' :
-                                        member.category === 'creative' ? 'bg-pink-500/20 text-pink-400' :
-                                            member.category === 'digital' ? 'bg-teal-500/20 text-teal-400' :
-                                                member.category === 'cinematography' ? 'bg-teal-500/20 text-teal-400' :
+                <span className={`px-3 py-1 border rounded-full text-xs font-medium ${member.category === 'faculty' ? 'bg-cyan-500/20 text-cyan-400' :
+                        member.category === 'leadership' ? 'bg-violet-600/20 text-violet-400' :
+                            member.category === 'tech' ? 'bg-red-600/20 text-red-400' :
+                                member.category === 'finance' ? 'bg-green-600/20 text-green-400' :
+                                    member.category === 'management' ? 'bg-blue-600/20 text-blue-400' :
+                                        member.category === 'creative' ? 'bg-pink-600/20 text-pink-400' :
+                                            member.category === 'digital' ? 'bg-teal-600/20 text-teal-400' :
+                                                member.category === 'cinematography' ? 'bg-teal-600/20 text-teal-400' :
                                                     'bg-yellow-500/20 text-yellow-400'
                     }`}>
                     {member.category.charAt(0).toUpperCase() + member.category.slice(1)}
@@ -389,7 +388,7 @@ const Team = () => {
                 </div>
             </section>
 
-            <section className="py-16 ">
+            <section className="py-6 ">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -467,9 +466,9 @@ const Team = () => {
                                 <button
                                     key={filterOption.id}
                                     onClick={() => setFilter(filterOption.id)}
-                                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center space-x-2 ${filter === filterOption.id
+                                    className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center space-x-2 border ${filter === filterOption.id
                                             ? 'bg-blue-500 text-white'
-                                            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                                            : ' hover:bg-blue-500 hover:text-white'
                                         }`}
                                 >
                                     <span>{filterOption.name}</span>
