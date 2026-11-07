@@ -5,6 +5,7 @@ import Projects from './page/projects';
 import Knowledge from './page/knowledge';
 import Contact from './page/contact';
 import Team from './page/team';
+import NotFound from './page/notfound';
 import Navbar from './components/Navbar';
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/team" element={<Team />} />
       <Route path="/knowledge" element={<Knowledge />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="*" element={<NotFound />} />
     </Routes></>
     
   )
