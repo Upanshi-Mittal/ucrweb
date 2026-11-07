@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { Link, useLocation, useNavigationType, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
     ChevronLeft,
@@ -7,6 +7,7 @@ import {
     Download,
     ExternalLink,
     Folder,
+    ImageOff,
     Maximize2,
     Play,
     X,
@@ -18,16 +19,18 @@ import {
     downloadUrl,
     driveFolderUrl,
     listFolder,
+    resolveTrail,
     thumbUrl,
+    videoPreviewUrl,
 } from '../lib/drive';
-import type { DriveFile, FolderContents } from '../lib/drive';
-
-type Crumb = { id: string; name: string };
+import type { Crumb, DriveFile, FolderContents } from '../lib/drive';
 
 type LoadState =
     | { status: 'loading' }
-    | { status: 'ready'; data: FolderContents }
+    | { status: 'ready'; trail: Crumb[]; data: FolderContents }
     | { status: 'error'; message: string };
+
+const eventRoots: Crumb[] = events.map((event) => ({ id: event.folderId, name: event.name }));
 
 const cardClass =
     'group rounded-2xl border-2 border-black transition-all duration-300 overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7]';
@@ -35,31 +38,103 @@ const cardClass =
 const lightboxButtonClass =
     'w-10 h-10 rounded-xl border-2 border-black bg-white text-black flex items-center justify-center transition-colors duration-200 hover:bg-yellow-400';
 
-const folderLink = (id: string, name: string) =>
-    `/gallery?f=${encodeURIComponent(id)}&t=${encodeURIComponent(name)}`;
+const folderLink = (id: string) => `/gallery?f=${encodeURIComponent(id)}`;
 
 const isVideo = (file: DriveFile) => file.mimeType.startsWith('video/');
 
-const videoPreviewUrl = (id: string) => `https://drive.google.com/file/d/${id}/preview`;
-
 function aspectRatio(file: DriveFile) {
-    const meta = file.imageMediaMetadata;
+    const meta = file.imageMediaMetadata ?? file.videoMediaMetadata;
     if (!meta?.width || !meta?.height) return '4 / 3';
-    const rotated = meta.rotation === 1 || meta.rotation === 3;
+    const rotation = file.imageMediaMetadata?.rotation;
+    const rotated = rotation === 1 || rotation === 3;
     return rotated ? `${meta.height} / ${meta.width}` : `${meta.width} / ${meta.height}`;
 }
 
 function errorMessage(err: unknown) {
     if (err instanceof DriveError) {
-        if (err.message === 'NO_KEY') {
-            return 'The on-site gallery is not switched on yet, but all the photos are on Google Drive.';
-        }
-        if (err.status === 403 || err.status === 404) {
-            return 'These photos could not be loaded. The folder may not be shared publicly.';
+        switch (err.kind) {
+            case 'no-key':
+                return 'The on-site gallery is not switched on yet.';
+            case 'invalid-link':
+                return "This gallery link isn't valid.";
+            case 'not-in-gallery':
+                return "This folder isn't part of the μCR gallery.";
+            case 'quota':
+                return 'The gallery is busy right now. Please try again in a little while.';
+            case 'key':
+                return "The gallery can't connect to Google Drive right now. If you run this site, check the API key and its allowed websites.";
+            case 'access':
+                return 'These photos could not be loaded. The folder may have been moved or may no longer be shared publicly.';
         }
     }
-    const detail = err instanceof Error ? err.message : 'Unknown error';
-    return `Could not load photos (${detail}).`;
+    return 'Could not load photos. Check your connection and try again.';
+}
+
+function useGalleryScroll(ready: boolean) {
+    const { key, search } = useLocation();
+    const navigationType = useNavigationType();
+    // A fresh page load always has the key "default", so the address keeps pages apart.
+    const storageKey = `gallery-scroll:${key}:${search}`;
+
+    useEffect(() => {
+        const save = () => {
+            try {
+                sessionStorage.setItem(storageKey, String(window.scrollY));
+            } catch {
+                // Remembering the position is optional.
+            }
+        };
+        window.addEventListener('scroll', save, { passive: true });
+        return () => window.removeEventListener('scroll', save);
+    }, [storageKey]);
+
+    useEffect(() => {
+        if (navigationType !== 'POP') {
+            window.scrollTo(0, 0);
+        }
+    }, [navigationType, storageKey]);
+
+    useEffect(() => {
+        if (!ready || navigationType !== 'POP') return;
+        try {
+            const saved = sessionStorage.getItem(storageKey);
+            if (saved) window.scrollTo(0, Number(saved));
+        } catch {
+            // Remembering the position is optional.
+        }
+    }, [ready, navigationType, storageKey]);
+}
+
+type DriveImageProps = {
+    id: string;
+    width: number;
+    alt: string;
+    className: string;
+    lazy?: boolean;
+};
+
+function DriveImage({ id, width, alt, className, lazy = true }: DriveImageProps) {
+    const [failed, setFailed] = useState(false);
+
+    if (failed) {
+        return (
+            <div className={`${className} min-h-24 min-w-40 p-4 bg-neutral-100 text-neutral-600 flex flex-col items-center justify-center gap-2 text-sm text-center`}>
+                <ImageOff className="w-6 h-6" />
+                <span>Image unavailable</span>
+            </div>
+        );
+    }
+
+    return (
+        <img
+            src={thumbUrl(id, width)}
+            referrerPolicy="no-referrer"
+            alt={alt}
+            loading={lazy ? 'lazy' : 'eager'}
+            onError={() => setFailed(true)}
+            className={className}
+        />
+    );
 }
 
 function DriveButton({ folderId }: { folderId: string }) {
@@ -85,6 +160,8 @@ function Notice({ message }: { message: string }) {
 }
 
 function EventGrid() {
+    useGalleryScroll(true);
+
     return (
         <section className="py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -109,17 +186,12 @@ function EventGrid() {
                             transition={{ delay: index * 0.05, duration: 0.6 }}
                             className={cardClass}
                         >
-                            <Link
-                                to={folderLink(event.folderId, event.name)}
-                                state={{ trail: [{ id: event.folderId, name: event.name }] }}
-                                className="block"
-                            >
+                            <Link to={folderLink(event.folderId)} className="block">
                                 <div className="aspect-[3/2] overflow-hidden border-b-2 border-black">
-                                    <img
-                                        src={thumbUrl(event.coverId, 800)}
-                                        referrerPolicy="no-referrer"
+                                    <DriveImage
+                                        id={event.coverId}
+                                        width={800}
                                         alt={event.name}
-                                        loading="lazy"
                                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                                     />
                                 </div>
@@ -149,8 +221,7 @@ function Breadcrumbs({ trail }: { trail: Crumb[] }) {
                         <span className="font-bold" aria-current="page">{step.name}</span>
                     ) : (
                         <Link
-                            to={folderLink(step.id, step.name)}
-                            state={{ trail: trail.slice(0, index + 1) }}
+                            to={folderLink(step.id)}
                             className="underline underline-offset-4 hover:text-yellow-600"
                         >
                             {step.name}
@@ -162,14 +233,10 @@ function Breadcrumbs({ trail }: { trail: Crumb[] }) {
     );
 }
 
-function AlbumCard({ folder, trail }: { folder: DriveFile; trail: Crumb[] }) {
+function AlbumCard({ folder }: { folder: DriveFile }) {
     return (
         <div className={cardClass}>
-            <Link
-                to={folderLink(folder.id, folder.name)}
-                state={{ trail: [...trail, { id: folder.id, name: folder.name }] }}
-                className="flex items-center gap-4 p-5"
-            >
+            <Link to={folderLink(folder.id)} className="flex items-center gap-4 p-5">
                 <span className="w-12 h-12 shrink-0 rounded-xl border-2 border-black bg-yellow-400 flex items-center justify-center">
                     <Folder className="w-6 h-6" />
                 </span>
@@ -179,7 +246,13 @@ function AlbumCard({ folder, trail }: { folder: DriveFile; trail: Crumb[] }) {
     );
 }
 
-function PhotoTile({ file, onOpen }: { file: DriveFile; onOpen: () => void }) {
+type PhotoTileProps = {
+    file: DriveFile;
+    index: number;
+    onOpen: (index: number) => void;
+};
+
+const PhotoTile = memo(function PhotoTile({ file, index, onOpen }: PhotoTileProps) {
     return (
         <figure
             className={`${cardClass} mb-6 break-inside-avoid`}
@@ -187,15 +260,14 @@ function PhotoTile({ file, onOpen }: { file: DriveFile; onOpen: () => void }) {
         >
             <button
                 type="button"
-                onClick={onOpen}
+                onClick={() => onOpen(index)}
                 aria-label={`Open ${file.name}`}
                 className="absolute inset-0 w-full h-full cursor-pointer"
             >
-                <img
-                    src={thumbUrl(file.id, 600)}
-                    referrerPolicy="no-referrer"
+                <DriveImage
+                    id={file.id}
+                    width={600}
                     alt={file.name}
-                    loading="lazy"
                     className="w-full h-full object-cover"
                 />
             </button>
@@ -206,18 +278,20 @@ function PhotoTile({ file, onOpen }: { file: DriveFile; onOpen: () => void }) {
                 </span>
             )}
 
-            <div className="absolute bottom-3 right-3 flex gap-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100 focus-within:opacity-100">
+            {/* Always visible on touch screens, which have no hover to reveal them. */}
+            <div className="absolute bottom-3 right-3 flex gap-2 transition-opacity duration-200 [@media(hover:hover)]:opacity-0 group-hover:opacity-100 focus-within:opacity-100">
                 <button
                     type="button"
-                    onClick={onOpen}
+                    onClick={() => onOpen(index)}
                     aria-label={`Preview ${file.name}`}
-                    className={lightboxButtonClass}
+                    className={`${lightboxButtonClass} [@media(hover:none)]:hidden`}
                 >
                     <Maximize2 className="w-4 h-4" />
                 </button>
                 <a
                     href={downloadUrl(file.id)}
-                    download={file.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={`Download ${file.name}`}
                     className={lightboxButtonClass}
                 >
@@ -226,7 +300,7 @@ function PhotoTile({ file, onOpen }: { file: DriveFile; onOpen: () => void }) {
             </div>
         </figure>
     );
-}
+});
 
 type LightboxProps = {
     files: DriveFile[];
@@ -237,6 +311,7 @@ type LightboxProps = {
 
 function Lightbox({ files, index, onChange, onClose }: LightboxProps) {
     const file = files[index];
+    const dialogRef = useRef<HTMLDivElement>(null);
     const previous = () => onChange((index - 1 + files.length) % files.length);
     const next = () => onChange((index + 1) % files.length);
 
@@ -245,27 +320,46 @@ function Lightbox({ files, index, onChange, onClose }: LightboxProps) {
             if (e.key === 'Escape') onClose();
             if (e.key === 'ArrowLeft') onChange((index - 1 + files.length) % files.length);
             if (e.key === 'ArrowRight') onChange((index + 1) % files.length);
+            if (e.key === 'Tab' && dialogRef.current) {
+                // Keep keyboard focus inside the viewer.
+                const focusable = dialogRef.current.querySelectorAll<HTMLElement>('a[href], button, iframe');
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                const active = document.activeElement;
+                if (e.shiftKey && (active === first || active === dialogRef.current)) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && active === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
         };
         document.addEventListener('keydown', onKey);
         return () => document.removeEventListener('keydown', onKey);
     }, [index, files.length, onChange, onClose]);
 
     useEffect(() => {
+        const opener = document.activeElement as HTMLElement | null;
+        dialogRef.current?.focus();
         document.body.style.overflow = 'hidden';
         return () => {
             document.body.style.overflow = '';
+            opener?.focus?.({ preventScroll: true });
         };
     }, []);
 
     return (
         <div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-label={file.name}
+            tabIndex={-1}
             onClick={(e) => {
                 if (e.target === e.currentTarget) onClose();
             }}
-            className="fixed inset-0 z-[60] bg-black/90 flex items-center justify-center px-4 sm:px-20 pt-20 pb-16"
+            className="fixed inset-0 z-[60] bg-black/90 flex items-center justify-center px-4 sm:px-20 pt-20 pb-16 outline-none"
         >
             <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-4">
                 <span className="px-3 py-1 rounded-lg border-2 border-black bg-yellow-400 text-black text-sm font-bold">
@@ -274,7 +368,8 @@ function Lightbox({ files, index, onChange, onClose }: LightboxProps) {
                 <div className="flex gap-2">
                     <a
                         href={downloadUrl(file.id)}
-                        download={file.name}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         aria-label="Download original"
                         className={lightboxButtonClass}
                     >
@@ -305,11 +400,12 @@ function Lightbox({ files, index, onChange, onClose }: LightboxProps) {
                     className="w-full h-full max-w-5xl rounded-xl border-2 border-black bg-black"
                 />
             ) : (
-                <img
+                <DriveImage
                     key={file.id}
-                    src={thumbUrl(file.id, 1600)}
-                    referrerPolicy="no-referrer"
+                    id={file.id}
+                    width={1600}
                     alt={file.name}
+                    lazy={false}
                     className="max-w-full max-h-full object-contain rounded-xl border-2 border-black"
                 />
             )}
@@ -330,26 +426,34 @@ function Lightbox({ files, index, onChange, onClose }: LightboxProps) {
     );
 }
 
-function FolderView({ folderId, title, trail }: { folderId: string; title: string; trail: Crumb[] }) {
+function FolderView({ folderId }: { folderId: string }) {
     const [state, setState] = useState<LoadState>({ status: 'loading' });
     const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const closeLightbox = useCallback(() => setOpenIndex(null), []);
+
+    useGalleryScroll(state.status !== 'loading');
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-        let stale = false;
-        listFolder(folderId)
-            .then((data) => {
-                if (!stale) setState({ status: 'ready', data });
-            })
-            .catch((err: unknown) => {
-                if (!stale) setState({ status: 'error', message: errorMessage(err) });
-            });
-        return () => {
-            stale = true;
-        };
+        const controller = new AbortController();
+        const { signal } = controller;
+
+        (async () => {
+            try {
+                const trail = await resolveTrail(folderId, eventRoots, signal);
+                const data = await listFolder(folderId, signal);
+                if (!signal.aborted) setState({ status: 'ready', trail, data });
+            } catch (err) {
+                if (!signal.aborted) setState({ status: 'error', message: errorMessage(err) });
+            }
+        })();
+
+        return () => controller.abort();
     }, [folderId]);
 
-    const closeLightbox = () => setOpenIndex(null);
+    // The URL can hold anything, so only name and link to folders known to be ours.
+    const eventRoot = eventRoots.find((root) => root.id === folderId);
+    const trail = state.status === 'ready' ? state.trail : eventRoot ? [eventRoot] : [];
+    const title = trail.length ? trail[trail.length - 1].name : 'Gallery';
 
     return (
         <section className="pt-16 pb-20">
@@ -358,7 +462,7 @@ function FolderView({ folderId, title, trail }: { folderId: string; title: strin
 
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
                     <h1 className="text-4xl md:text-5xl font-bold break-words min-w-0">{title}</h1>
-                    <DriveButton folderId={folderId} />
+                    {trail.length > 0 && <DriveButton folderId={folderId} />}
                 </div>
 
                 {state.status === 'loading' && <p className="text-lg text-center py-16">Loading photos…</p>}
@@ -374,7 +478,7 @@ function FolderView({ folderId, title, trail }: { folderId: string; title: strin
                         <h2 className="text-2xl font-bold mb-6">Albums</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {state.data.folders.map((folder) => (
-                                <AlbumCard key={folder.id} folder={folder} trail={trail} />
+                                <AlbumCard key={folder.id} folder={folder} />
                             ))}
                         </div>
                     </div>
@@ -385,7 +489,7 @@ function FolderView({ folderId, title, trail }: { folderId: string; title: strin
                         <h2 className="text-2xl font-bold mb-6">Photos ({state.data.files.length})</h2>
                         <div className="columns-[260px] gap-6">
                             {state.data.files.map((file, index) => (
-                                <PhotoTile key={file.id} file={file} onOpen={() => setOpenIndex(index)} />
+                                <PhotoTile key={file.id} file={file} index={index} onOpen={setOpenIndex} />
                             ))}
                         </div>
                     </div>
@@ -406,28 +510,11 @@ function FolderView({ folderId, title, trail }: { folderId: string; title: strin
 
 function Gallery() {
     const [params] = useSearchParams();
-    const location = useLocation();
     const folderId = params.get('f');
-
-    if (!folderId) {
-        return (
-            <div className="pt-16">
-                <EventGrid />
-                <Footer />
-            </div>
-        );
-    }
-
-    const title = params.get('t') || 'Gallery';
-    const savedTrail: Crumb[] | undefined = location.state?.trail;
-    const trail =
-        savedTrail && savedTrail[savedTrail.length - 1]?.id === folderId
-            ? savedTrail
-            : [{ id: folderId, name: title }];
 
     return (
         <div className="pt-16">
-            <FolderView key={folderId} folderId={folderId} title={title} trail={trail} />
+            {folderId ? <FolderView key={folderId} folderId={folderId} /> : <EventGrid />}
             <Footer />
         </div>
     );
