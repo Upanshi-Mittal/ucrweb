@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from "react-router-dom";
 import { Mail, Filter } from 'lucide-react';
+import { SmartImg } from '../components/SmartImg';
 import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import ayush from '../assets/ayush.jpeg';
 import bhavyanshika from '../assets/bhavyanshika.jpeg';
@@ -278,10 +279,12 @@ const Team = () => {
         className="group rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md"
     >
         <div className="aspect-square relative overflow-hidden ">
-            <img
+            <SmartImg
                 src={member.image}
                 alt={member.name}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 "
+                width={300}
+                height={300}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
             />
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute bottom-4 left-4 right-4">
