@@ -456,7 +456,7 @@ const KnowledgeHub = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1, duration: 0.6 }}
-            className="group rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] backdrop-blur-md p-4"
+            className="group rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md p-4"
           >
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center space-x-3">
