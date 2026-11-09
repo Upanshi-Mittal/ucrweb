@@ -614,7 +614,7 @@ const Projects: React.FC = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setActiveProject(null)}
-                            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+                            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
                         />
 
                         {/* Modal Box */}
@@ -623,68 +623,69 @@ const Projects: React.FC = () => {
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
                             transition={{ duration: 0.3 }}
-                            className="relative w-full max-w-3xl rounded-3xl border border-gray-700 bg-gray-900 text-white shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col my-auto"
+                            className="relative w-full max-w-3xl rounded-3xl border-2 border-black bg-[#fffdf7] text-black shadow-[10px_10px_0_black] overflow-hidden z-10 max-h-[90vh] flex flex-col my-auto"
                         >
                             {/* Modal Header */}
-                            <div className="p-6 sm:p-8 border-b border-gray-800 flex items-start justify-between gap-4">
+                            <div className="p-6 sm:p-8 border-b-2 border-black/10 bg-white/70 flex items-start justify-between gap-4">
                                 <div className="space-y-1.5">
                                     <div className="flex flex-wrap items-center gap-2 mb-2">
                                         <span
-                                            className={`px-3 py-1 rounded-full text-xs font-medium border ${
-                                                categoryBadgeStyles[activeProject.category] || 'bg-gray-800 text-gray-300'
+                                            className={`px-3 py-1 rounded-full text-xs font-bold border-2 border-black ${
+                                                categoryBadgeStyles[activeProject.category] || 'bg-neutral-100 text-neutral-800'
                                             }`}
                                         >
                                             {activeProject.categoryLabel}
                                         </span>
                                         <span
-                                            className={`px-2.5 py-0.5 rounded-full text-xs font-medium border flex items-center gap-1.5 ${
-                                                statusBadgeStyles[activeProject.status] || 'bg-gray-800 text-gray-300'
+                                            className={`px-2.5 py-0.5 rounded-full text-xs font-bold border-2 border-black flex items-center gap-1.5 ${
+                                                statusBadgeStyles[activeProject.status] || 'bg-neutral-100 text-neutral-800'
                                             }`}
                                         >
                                             <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
                                             {activeProject.status}
                                         </span>
                                     </div>
-                                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-black">
                                         {activeProject.title}
                                     </h2>
-                                    <p className="text-sm text-violet-400 font-medium">
-                                        Core Controller: {activeProject.mcu}
+                                    <p className="text-sm font-bold text-blue-600 flex items-center gap-1.5">
+                                        <Cpu className="w-4 h-4" /> Core MCU: {activeProject.mcu}
                                     </p>
                                 </div>
                                 <button
                                     onClick={() => setActiveProject(null)}
-                                    className="w-10 h-10 rounded-full border border-gray-700 bg-gray-800/80 flex items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 transition-colors shrink-0"
+                                    className="w-10 h-10 rounded-xl border-2 border-black bg-white text-black hover:bg-yellow-400 shadow-[2px_2px_0_black] flex items-center justify-center transition-all shrink-0 cursor-pointer"
+                                    aria-label="Close dialog"
                                 >
                                     <X className="w-5 h-5" />
                                 </button>
                             </div>
 
                             {/* Modal Content - Scrollable */}
-                            <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
+                            <div className="p-6 sm:p-8 overflow-y-auto space-y-7">
                                 {/* Tagline & Overview */}
                                 <div>
-                                    <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                                    <h4 className="text-xs font-extrabold text-neutral-500 uppercase tracking-wider mb-2">
                                         Project Overview
                                     </h4>
-                                    <p className="text-base text-gray-200 leading-relaxed">
+                                    <p className="text-sm sm:text-base text-neutral-800 leading-relaxed font-normal">
                                         {activeProject.fullDescription}
                                     </p>
                                 </div>
 
                                 {/* Key Features */}
                                 <div>
-                                    <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                                    <h4 className="text-xs font-extrabold text-neutral-500 uppercase tracking-wider mb-3">
                                         Key Technical Features & Firmware
                                     </h4>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                         {activeProject.features.map((feat, idx) => (
                                             <div
                                                 key={idx}
-                                                className="p-3.5 rounded-xl border border-gray-800 bg-gray-800/40 flex items-start gap-3"
+                                                className="p-3.5 rounded-xl border-2 border-black/10 bg-white flex items-start gap-3 shadow-[2px_2px_0_black]"
                                             >
-                                                <CheckCircle2 className="w-5 h-5 text-violet-400 shrink-0 mt-0.5" />
-                                                <span className="text-xs sm:text-sm text-gray-300 leading-snug">
+                                                <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                                                <span className="text-xs sm:text-sm font-medium text-neutral-800 leading-snug">
                                                     {feat}
                                                 </span>
                                             </div>
@@ -694,14 +695,14 @@ const Projects: React.FC = () => {
 
                                 {/* Hardware Bill of Materials */}
                                 <div>
-                                    <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                                    <h4 className="text-xs font-extrabold text-neutral-500 uppercase tracking-wider mb-3">
                                         Hardware & Sensors Implemented
                                     </h4>
-                                    <div className="p-4 rounded-xl border border-gray-800 bg-gray-800/30">
-                                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                    <div className="p-4 sm:p-5 rounded-2xl border-2 border-black/10 bg-white shadow-[2px_2px_0_black]">
+                                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                             {activeProject.hardware.map((item, idx) => (
-                                                <li key={idx} className="flex items-center gap-2 text-xs sm:text-sm text-gray-300">
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                                                <li key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-neutral-800 font-medium">
+                                                    <span className="w-2 h-2 rounded-full border border-black bg-yellow-400 shrink-0" />
                                                     <span>{item}</span>
                                                 </li>
                                             ))}
@@ -711,14 +712,14 @@ const Projects: React.FC = () => {
 
                                 {/* Tech Stack Tags */}
                                 <div>
-                                    <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2.5">
+                                    <h4 className="text-xs font-extrabold text-neutral-500 uppercase tracking-wider mb-2.5">
                                         Software & Protocols
                                     </h4>
                                     <div className="flex flex-wrap gap-2">
                                         {activeProject.techStack.map((tech) => (
                                             <span
                                                 key={tech}
-                                                className="px-3 py-1 rounded-lg text-xs font-medium bg-violet-500/10 text-violet-300 border border-violet-500/30"
+                                                className="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-neutral-900 border-2 border-black shadow-[2px_2px_0_black]"
                                             >
                                                 {tech}
                                             </span>
@@ -728,10 +729,12 @@ const Projects: React.FC = () => {
 
                                 {/* Achievements */}
                                 {activeProject.achievements && (
-                                    <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 flex items-center gap-3">
-                                        <Award className="w-6 h-6 text-amber-400 shrink-0" />
-                                        <div className="text-xs sm:text-sm text-amber-200">
-                                            <span className="font-semibold text-amber-300">Milestone: </span>
+                                    <div className="p-4 rounded-xl border-2 border-black bg-yellow-100/70 flex items-center gap-3.5 shadow-[3px_3px_0_black]">
+                                        <div className="w-9 h-9 rounded-lg border-2 border-black bg-yellow-400 text-black flex items-center justify-center shrink-0">
+                                            <Award className="w-5 h-5" />
+                                        </div>
+                                        <div className="text-xs sm:text-sm text-neutral-900">
+                                            <span className="font-bold text-black">Milestone: </span>
                                             {activeProject.achievements}
                                         </div>
                                     </div>
@@ -739,8 +742,8 @@ const Projects: React.FC = () => {
                             </div>
 
                             {/* Modal Footer */}
-                            <div className="p-6 border-t border-gray-800 flex items-center justify-between gap-4 bg-gray-900/90">
-                                <div className="text-xs text-gray-400">
+                            <div className="p-5 sm:p-6 border-t-2 border-black/10 flex items-center justify-between gap-4 bg-white/70">
+                                <div className="text-xs font-bold text-neutral-600 uppercase tracking-wider">
                                     Engineered by μCR Hub Members
                                 </div>
                                 <div className="flex items-center gap-3">
@@ -749,7 +752,7 @@ const Projects: React.FC = () => {
                                             href={activeProject.github}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="px-4 py-2 rounded-xl text-xs sm:text-sm font-medium border border-gray-700 hover:border-gray-500 text-gray-200 flex items-center gap-2 transition-colors"
+                                            className="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border-2 border-black bg-white text-black hover:bg-yellow-400 shadow-[3px_3px_0_black] hover:shadow-[3px_3px_0_#facc15] hover:-translate-y-0.5 flex items-center gap-2 transition-all"
                                         >
                                             <FaGithub className="w-4 h-4" />
                                             <span>Repository</span>
@@ -757,7 +760,7 @@ const Projects: React.FC = () => {
                                     )}
                                     <button
                                         onClick={() => setActiveProject(null)}
-                                        className="px-5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-violet-600 hover:bg-violet-700 text-white transition-colors"
+                                        className="px-5 py-2 rounded-xl text-xs sm:text-sm font-bold border-2 border-black bg-blue-500 hover:bg-blue-600 text-white shadow-[3px_3px_0_black] hover:shadow-[3px_3px_0_#facc15] hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 transition-all cursor-pointer"
                                     >
                                         Close
                                     </button>
@@ -769,7 +772,7 @@ const Projects: React.FC = () => {
             </AnimatePresence>
 
             {/* Call to Action Section - Matching Home & Team vibe */}
-            <section className="py-20 border-t border-gray-800">
+            <section className="py-20 border-t-2 border-black/10">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -778,23 +781,22 @@ const Projects: React.FC = () => {
                         transition={{ duration: 0.8 }}
                         className="space-y-6"
                     >
-                        <h2 className="text-3xl md:text-5xl font-bold">
+                        <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-black">
                             Have an Idea? Build With μCR
-                            
                         </h2>
-                        <p className="text-base sm:text-xl leading-relaxed max-w-2xl mx-auto">
+                        <p className="text-base sm:text-xl leading-relaxed max-w-2xl mx-auto text-neutral-700">
                             Whether you want to construct an autonomous rover, explore sensor fusion, or manufacture custom PCB micro-controllers, our hub provides the components, equipment, and peer mentorship you need.
                         </p>
                         <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                             <Link
                                 to="/contact"
-                                className="px-8 py-3.5 border-2 border-black text-black-500 bg-blue-500/70 backdrop-blur-md hover:bg-blue-500 hover:text-white font-semibold rounded-xl shadow-lg shadow-violet-500/25 transition-all duration-300 hover:scale-105"
+                                className="px-8 py-3.5 border-2 border-black text-white bg-blue-500 hover:bg-blue-600 font-bold rounded-xl shadow-[4px_4px_0_black] hover:shadow-[4px_4px_0_#facc15] hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 transition-all duration-200"
                             >
                                 Submit a Project Pitch
                             </Link>
                             <Link
                                 to="/knowledge"
-                                className="px-8 py-3.5 border-2 rounded-xl font-medium hover:bg-blue-500/70 transition-all duration-300"
+                                className="px-8 py-3.5 border-2 border-black bg-white text-black hover:bg-yellow-400 font-bold rounded-xl shadow-[4px_4px_0_black] hover:shadow-[4px_4px_0_#facc15] hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 transition-all duration-200"
                             >
                                 Browse Knowledge Hub
                             </Link>

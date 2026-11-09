@@ -6,7 +6,7 @@ import Logo from './Logo';
 import { Link } from "react-router-dom";
 const Footer = () => {
   return (
-    <footer className=" border-t border-gray-800">
+    <footer className="border-t-2 border-black bg-white/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <motion.div
@@ -129,7 +129,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-12 h-12 border-2 bg-gradient-to-br ${social.color} rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-300`}
+                  className={`w-11 h-11 border-2 border-black bg-gradient-to-br ${social.color} rounded-xl flex items-center justify-center shadow-[3px_3px_0_black] hover:shadow-[3px_3px_0_#facc15] hover:-translate-y-0.5 transition-all duration-200`}
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -140,7 +140,7 @@ const Footer = () => {
           
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm ">
+        <div className="mt-8 pt-8 border-t-2 border-black/10 text-center text-sm text-neutral-600 font-medium">
           <p>&copy; 2026 μCR - Microcontroller-Based Systems and Robotics Hub. All rights reserved.</p>
          <p>Developed by <a href="https://www.linkedin.com/in/anshulsingh27" target="_blank" rel="noopener noreferrer">🌼</a></p>
         </div>

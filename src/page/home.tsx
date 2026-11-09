@@ -28,7 +28,7 @@ function Home() {
             <section id="hero" className="relative w-full h-screen overflow-hidden z-10">
                 <Sac />
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none select-none z-30 flex flex-col items-center gap-2">
-                    <div className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-md text-xs sm:text-sm font-semibold tracking-wide shadow-2xl">
+                    <div className="flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-black bg-[#fffdf7]/95 text-black backdrop-blur-md text-xs sm:text-sm font-bold tracking-wide shadow-[4px_4px_0_black]">
                         <span>↔ Drag horizontally to explore events & projects • Click cards to view</span>
                     </div>
                 </div>
