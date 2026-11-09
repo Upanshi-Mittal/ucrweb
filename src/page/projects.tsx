@@ -424,26 +424,26 @@ const Projects: React.FC = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
                         <div className="relative w-full md:w-80">
-                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
                             <input
                                 type="text"
                                 placeholder="Search by name, MCU, tech..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm focus:outline-none transition-colors placeholder:text-gray-500"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-xl border-2 border-black bg-white text-black text-sm shadow-[2px_2px_0_black] focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-black transition-all placeholder:text-neutral-400"
                             />
                             {searchQuery && (
                                 <button
                                     onClick={() => setSearchQuery('')}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black font-bold text-base"
                                 >
-                                    <X className="w-4 h-4" />
+                                    ✕
                                 </button>
                             )}
                         </div>
 
                         <div className="flex flex-wrap items-center justify-center gap-2">
-                            <div className="hidden lg:flex items-center text-gray-400 text-sm mr-2">
+                            <div className="hidden lg:flex items-center text-neutral-600 text-sm mr-1 font-semibold">
                                 <Filter className="w-4 h-4 mr-1.5" />
                                 <span>Filter:</span>
                             </div>
@@ -459,16 +459,16 @@ const Projects: React.FC = () => {
                                     <button
                                         key={tab.id}
                                         onClick={() => setSelectedCategory(tab.id)}
-                                        className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2 border ${
+                                        className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 flex items-center gap-2 border-2 border-black ${
                                             isSelected
-                                                ? 'bg-blue-500 text-white border-violet-400/50 shadow-lg shadow-violet-500/20'
-                                                : ' hover:text-blue-500 border-2'
+                                                ? 'bg-blue-500 text-white shadow-[3px_3px_0_black]'
+                                                : 'bg-white text-black shadow-[3px_3px_0_black] hover:shadow-[3px_3px_0_#facc15] hover:-translate-y-0.5'
                                         }`}
                                     >
                                         <span>{tab.name}</span>
                                         <span
-                                            className={`text-xs px-2 py-0.5 rounded-full ${
-                                                isSelected ? 'bg-white/20 text-white' : 'bg-gray-800 text-gray-400'
+                                            className={`text-xs px-2 py-0.5 rounded-full font-bold ${
+                                                isSelected ? 'bg-white/20 text-white' : 'bg-black/10 text-black'
                                             }`}
                                         >
                                             {count}
@@ -514,21 +514,21 @@ const Projects: React.FC = () => {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: index * 0.06, duration: 0.5 }}
-                                        className="group rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md"
+                                        className="group rounded-2xl border-2 border-black transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md"
                                     >
                                         <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-5">
                                             <div>
                                                 <div className="flex items-center justify-between gap-2 mb-4">
                                                     <span
-                                                        className={`px-3 py-1 rounded-full text-xs font-medium border ${
-                                                            categoryBadgeStyles[project.category] || 'bg-gray-800 border-gray-700'
+                                                        className={`px-3 py-1 rounded-full text-xs font-bold border-2 border-black ${
+                                                            categoryBadgeStyles[project.category] || 'bg-neutral-100 text-neutral-800'
                                                         }`}
                                                     >
                                                         {project.categoryLabel}
                                                     </span>
                                                     <span
-                                                        className={`px-2.5 py-0.5 rounded-full text-xs font-medium border flex items-center gap-1.5 ${
-                                                            statusBadgeStyles[project.status] || 'bg-gray-800 text-gray-300 border-gray-700'
+                                                        className={`px-2.5 py-0.5 rounded-full text-xs font-bold border-2 border-black flex items-center gap-1.5 ${
+                                                            statusBadgeStyles[project.status] || 'bg-neutral-100 text-neutral-800'
                                                         }`}
                                                     >
                                                         <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
@@ -537,20 +537,20 @@ const Projects: React.FC = () => {
                                                 </div>
 
                                                 <div className="flex items-start gap-4 mb-3">
-                                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-red-500 bg-red-500/20 text-red-400 group-hover:scale-105 group-hover:bg-red-300 group-hover:text-white transition-all duration-300">
+                                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border-2 border-black bg-white text-black shadow-[2px_2px_0_black] group-hover:bg-yellow-400 group-hover:scale-105 transition-all duration-200">
                                                         <IconComponent className="w-6 h-6" />
                                                     </div>
                                                     <div>
-                                                        <h3 className="text-xl font-bold leading-snug transition-colors">
+                                                        <h3 className="text-xl font-bold leading-snug text-black group-hover:text-blue-600 transition-colors">
                                                             {project.title}
                                                         </h3>
-                                                        <p className="text-xs text-black-400 font-medium mt-1">
+                                                        <p className="text-xs text-blue-600 font-bold mt-1">
                                                             {project.mcu}
                                                         </p>
                                                     </div>
                                                 </div>
 
-                                                <p className="text-sm leading-relaxed line-clamp-3 mb-4">
+                                                <p className="text-sm text-neutral-700 leading-relaxed line-clamp-3 mb-4">
                                                     {project.shortDescription}
                                                 </p>
                                             </div>
@@ -560,23 +560,23 @@ const Projects: React.FC = () => {
                                                     {project.techStack.slice(0, 4).map((tech) => (
                                                         <span
                                                             key={tech}
-                                                            className="px-2.5 py-1 rounded-lg text-xs  border-2 "
+                                                            className="px-2.5 py-1 rounded-lg text-xs font-medium border-2 border-black/15 bg-white text-neutral-800"
                                                         >
                                                             {tech}
                                                         </span>
                                                     ))}
                                                     {project.techStack.length > 4 && (
-                                                        <span className="px-2 py-1 rounded-lg text-xs border bg-blue-500/70">
+                                                        <span className="px-2 py-1 rounded-lg text-xs font-bold border-2 border-black bg-yellow-400 text-black">
                                                             +{project.techStack.length - 4}
                                                         </span>
                                                     )}
                                                 </div>
 
                                                 {/* Action Buttons */}
-                                                <div className="pt-4 border-t border-gray-800 flex items-center justify-between gap-3">
+                                                <div className="pt-4 border-t-2 border-black/10 flex items-center justify-between gap-3">
                                                     <button
                                                         onClick={() => setActiveProject(project)}
-                                                        className="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-medium border-2 bg-blue-500/70 hover:bg-blue-500  group-hover:border-black hover:text-white transition-all duration-200 flex items-center justify-center gap-1.5 group/btn active:translate-x-0 active:translate-y-0 active:shadow-none"
+                                                        className="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold border-2 border-black bg-blue-500 hover:bg-blue-600 text-white shadow-[3px_3px_0_black] hover:shadow-[3px_3px_0_#facc15] hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-1.5 group/btn cursor-pointer"
                                                     >
                                                         <span>View Architecture</span>
                                                         <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
@@ -587,7 +587,7 @@ const Projects: React.FC = () => {
                                                             href={project.github}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="w-10 h-10 rounded-xl border  flex items-center justify-center   transition-colors shrink-0"
+                                                            className="w-10 h-10 rounded-xl border-2 border-black bg-white text-black hover:bg-yellow-400 shadow-[3px_3px_0_black] hover:shadow-[3px_3px_0_#facc15] hover:-translate-y-0.5 flex items-center justify-center transition-all shrink-0"
                                                             aria-label="GitHub Repository"
                                                         >
                                                             <FaGithub className="w-4 h-4" />

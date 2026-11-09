@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from "react-router-dom";
 import { Mail, Filter } from 'lucide-react';
+import Footer from '../components/Footer';
 import { SmartImg } from '../components/SmartImg';
 import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import ayush from '../assets/ayush.jpeg';
@@ -272,31 +273,32 @@ const Team = () => {
     };
 
 
-    const MemberCard = ({ member, index = 0 }: MemberCardProps) => (<motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.05, duration: 0.6 }}
-        className="group rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md"
-    >
-        <div className="aspect-square relative overflow-hidden ">
-            <SmartImg
-                src={member.image}
-                alt={member.name}
-                width={300}
-                height={300}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-4 left-4 right-4">
+    const MemberCard = ({ member, index = 0 }: MemberCardProps) => (
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05, duration: 0.6 }}
+            className="group rounded-2xl border-2 border-black transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md"
+        >
+            <div className="aspect-square relative overflow-hidden border-b-2 border-black bg-neutral-100">
+                <SmartImg
+                    src={member.image}
+                    alt={member.name}
+                    width={300}
+                    height={300}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-4">
                     <div className="flex space-x-2">
                         {member.github && (
                             <a
                                 href={member.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-8 h-8  backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                                className="w-9 h-9 rounded-full border-2 border-black bg-white text-black shadow-[2px_2px_0_black] hover:bg-yellow-400 hover:scale-110 flex items-center justify-center transition-all"
+                                aria-label="GitHub"
                             >
-                                <FaGithub className="w-4 h-4 text-white" />
+                                <FaGithub className="w-4 h-4" />
                             </a>
                         )}
 
@@ -305,68 +307,71 @@ const Team = () => {
                                 href={member.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                                className="w-9 h-9 rounded-full border-2 border-black bg-white text-black shadow-[2px_2px_0_black] hover:bg-yellow-400 hover:scale-110 flex items-center justify-center transition-all"
+                                aria-label="LinkedIn"
                             >
-                                <FaLinkedin className="w-4 h-4 text-white" />
+                                <FaLinkedin className="w-4 h-4" />
                             </a>
                         )}
-                        {/* Instagram */}
+
                         {member.instagram && (
                             <a
                                 href={member.instagram}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                                className="w-9 h-9 rounded-full border-2 border-black bg-white text-black shadow-[2px_2px_0_black] hover:bg-yellow-400 hover:scale-110 flex items-center justify-center transition-all"
+                                aria-label="Instagram"
                             >
-                                <FaInstagram className="w-4 h-4 text-white" />
+                                <FaInstagram className="w-4 h-4" />
                             </a>
                         )}
 
-                        {/* Email */}
-                        <a
-                            href={`mailto:${member.email}`}
-                            className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
-                        >
-                            <Mail className="w-4 h-4 text-white" />
-                        </a>
+                        {member.email && (
+                            <a
+                                href={`mailto:${member.email}`}
+                                className="w-9 h-9 rounded-full border-2 border-black bg-white text-black shadow-[2px_2px_0_black] hover:bg-yellow-400 hover:scale-110 flex items-center justify-center transition-all"
+                                aria-label="Email"
+                            >
+                                <Mail className="w-4 h-4" />
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div className="p-6 h-[260px] flex flex-col justify-between space-y-3">
-            <div>
-                <h3 className="text-lg font-semibold  group-hover:text-violet-400 transition-colors duration-300">
-                    {member.name}
-                </h3>
-                <p className="text-blue-400 font-medium text-sm">{member.role}</p>
+            <div className="p-6 h-[260px] flex flex-col justify-between space-y-3">
+                <div>
+                    <h3 className="text-xl font-bold text-black group-hover:text-blue-600 transition-colors duration-200">
+                        {member.name}
+                    </h3>
+                    <p className="text-blue-600 font-bold text-sm mt-0.5">{member.role}</p>
 
-                {member.branch && (
-                    <div className="text-sm  mt-1">
-                        <p>{member.branch}</p>
-                    </div>
-                )}
+                    {member.branch && (
+                        <div className="text-xs text-neutral-600 font-medium mt-1">
+                            <p>{member.branch}</p>
+                        </div>
+                    )}
 
-                <p className=" text-xs leading-relaxed mt-2">{member.bio}</p>
-            </div>
+                    <p className="text-xs text-neutral-700 leading-relaxed mt-2.5 line-clamp-3">{member.bio}</p>
+                </div>
 
-            <div>
-                <span className={`px-3 py-1 border rounded-full text-xs font-medium ${member.category === 'faculty' ? 'bg-cyan-500/20 text-cyan-400' :
-                        member.category === 'leadership' ? 'bg-violet-600/20 text-violet-400' :
-                            member.category === 'tech' ? 'bg-red-600/20 text-red-400' :
-                                member.category === 'finance' ? 'bg-green-600/20 text-green-400' :
-                                    member.category === 'management' ? 'bg-blue-600/20 text-blue-400' :
-                                        member.category === 'creative' ? 'bg-pink-600/20 text-pink-400' :
-                                            member.category === 'digital' ? 'bg-teal-600/20 text-teal-400' :
-                                                member.category === 'cinematography' ? 'bg-teal-600/20 text-teal-400' :
-                                                    'bg-yellow-500/20 text-yellow-400'
+                <div>
+                    <span className={`px-3 py-1 border-2 border-black rounded-full text-xs font-bold uppercase tracking-wider ${
+                        member.category === 'faculty' ? 'bg-cyan-100 text-cyan-800' :
+                        member.category === 'advisor' ? 'bg-amber-100 text-amber-800' :
+                        member.category === 'tech' ? 'bg-red-100 text-red-800' :
+                        member.category === 'management' ? 'bg-blue-100 text-blue-800' :
+                        member.category === 'creative' ? 'bg-pink-100 text-pink-800' :
+                        member.category === 'digital' ? 'bg-teal-100 text-teal-800' :
+                        member.category === 'cinematography' ? 'bg-purple-100 text-purple-800' :
+                        member.category === 'marketing' ? 'bg-yellow-200 text-yellow-900' :
+                        'bg-neutral-100 text-neutral-800'
                     }`}>
-                    {member.category.charAt(0).toUpperCase() + member.category.slice(1)}
-                </span>
+                        {member.category}
+                    </span>
+                </div>
             </div>
-        </div>
-
-    </motion.div>
+        </motion.div>
     );
 
     return (
@@ -461,21 +466,26 @@ const Team = () => {
 
                     <div className="mb-12">
                         <div className="flex items-center justify-center mb-6">
-                            <Filter className="w-5 h-5 mr-2" />
-                            <span className="font-medium">Filter by Role</span>
+                            <div className="flex items-center space-x-2 px-3 py-1.5 rounded-full border-2 border-black bg-white shadow-[2px_2px_0_black]">
+                                <Filter className="w-4 h-4 text-neutral-600" />
+                                <span className="font-bold text-xs uppercase tracking-wider text-black">Filter by Role</span>
+                            </div>
                         </div>
-                        <div className="flex flex-wrap justify-center gap-3">
+                        <div className="flex flex-wrap justify-center gap-2.5">
                             {filters.map((filterOption) => (
                                 <button
                                     key={filterOption.id}
                                     onClick={() => setFilter(filterOption.id)}
-                                    className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center space-x-2 border ${filter === filterOption.id
-                                            ? 'bg-blue-500 text-white'
-                                            : ' hover:bg-blue-500 hover:text-white'
-                                        }`}
+                                    className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 border-2 border-black flex items-center space-x-2 ${
+                                        filter === filterOption.id
+                                            ? 'bg-blue-500 text-white shadow-[3px_3px_0_black]'
+                                            : 'bg-white text-black shadow-[3px_3px_0_black] hover:shadow-[3px_3px_0_#facc15] hover:-translate-y-0.5'
+                                    }`}
                                 >
                                     <span>{filterOption.name}</span>
-                                    <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
+                                    <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
+                                        filter === filterOption.id ? 'bg-white/20 text-white' : 'bg-black/10 text-black'
+                                    }`}>
                                         {filterOption.count}
                                     </span>
                                 </button>
@@ -492,39 +502,9 @@ const Team = () => {
                 </div>
             </section>
 
-            {/*
-      <section className="py-20 ">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              Want to Join Our{' '}
-              <span className="bg-gradient-to-r from-violet-400 to-electric-400 bg-clip-text text-transparent">
-                Amazing Team?
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 leading-relaxed">
-              We're always looking for passionate individuals who share our vision of innovation
-              and excellence in robotics. Join us and be part of something extraordinary.
-            </p>
-            <motion.button
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
-  className="px-8 py-4 bg-gradient-to-r from-violet-500 to-electric-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-  onClick={() => navigate("/joinus")} // 👈 this line does the redirection
->
-  Apply to Join μCR
-</motion.button>
+            <Footer />
         </div>
-          </motion.div>
-      </section>*/}
-    </div>
-  );
+    );
 };
 
 export default Team;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Download, BookOpen, FileText, Video, Code, Calendar, Tag, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 import SmartImg from '../components/SmartImg';
 import sensors from "../assets/resource/Sensors.pdf"; 
 import diodes from "../assets/resource/diodes.pdf";
@@ -373,19 +374,20 @@ const KnowledgeHub = () => {
   });
 
   return (
-    <div className="pt-16">
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pt-16 min-h-screen flex flex-col">
+      {/* Hero Section */}
+      <section className="py-20 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center space-y-6"
           >
-            <h1 className="text-4xl md:text-6xl font-bold ">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-black">
               Knowledge Hub
             </h1>
-            <p className="text-xl md:text-2xl max-w-4xl mx-auto">
+            <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed text-neutral-700">
               Access our comprehensive collection of learning materials, tutorials, and tech blogs
               to enhance your robotics knowledge and skills.
             </p>
@@ -393,222 +395,258 @@ const KnowledgeHub = () => {
         </div>
       </section>
 
-      <section className="py-8 ">
+      {/* Search and Filter */}
+      <section className="py-6 border-y-2 border-black/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-6">
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2  w-5 h-5" />
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Search Bar */}
+            <div className="relative w-full md:w-96">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search materials and blogs..."
-                className="w-full pl-10 pr-4 py-3  rounded-lg border border-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border-2 border-black bg-white text-black text-sm shadow-[2px_2px_0_black] focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-black transition-all placeholder:text-neutral-400"
               />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black font-bold text-base"
+                >
+                  ✕
+                </button>
+              )}
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 border ${selectedCategory === category.id ? 'bg-blue-500 text-white border-violet-400/50 shadow-lg shadow-violet-500/20' : ' hover:text-blue-500 border-2'}`}
-                >
-                  {category.name}
-                </button>
-              ))}
+            {/* Category Filter */}
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {categories.map((category) => {
+                const isSelected = selectedCategory === category.id;
+                return (
+                  <button
+                    key={category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 border-2 border-black ${
+                      isSelected
+                        ? 'bg-blue-500 text-white shadow-[3px_3px_0_black]'
+                        : 'bg-white text-black shadow-[3px_3px_0_black] hover:shadow-[3px_3px_0_#facc15] hover:-translate-y-0.5'
+                    }`}
+                  >
+                    {category.name}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
-     {/* Learning Materials */}
-<section className="py-20">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-      className="mb-16"
-    >
-      <div className="flex items-center space-x-3 mb-6">
-        <BookOpen className="w-8 h-8 text-blue-500" />
-        <h2 className="text-3xl md:text-4xl font-bold ">Learning Materials</h2>
-      </div>
-      <p className="text-xl ">
-        Download comprehensive guides, tutorials, and reference materials
-      </p>
-    </motion.div>
-
-    {filteredMaterials.length === 0 ? (
-      <div className="text-center py-0">
-        <h2 className="text-2xl font-bold mb-2 ">No material found in this category</h2>
-        <p className="text-base">Try selecting a different category or using the search bar.</p>
-      </div>
-    ) : (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredMaterials.map((material, index) => (
-          <motion.div
-            key={material.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1, duration: 0.6 }}
-            className="group rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md p-4"
-          >
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex items-center space-x-3">
-                {material.type === 'pdf' ? (
-                  <FileText className="w-8 h-8 text-red-400" />
-                ) : material.type === 'video' ? (
-                  <Video className="w-8 h-8 text-blue-400" />
-                ) : (
-                  <Code className="w-8 h-8 text-green-400" />
-                )}
-                <div>
-                  <span
-                    className={`px-2 py-1 rounded text-xs font-medium border ${
-                      material.category === 'programming'
-                        ? 'bg-blue-500/20 text-blue-400'
-                        : material.category === 'hardware'
-                        ? 'bg-red-500/20 text-red-400'
-                        : material.category === 'robotics'
-                        ? 'bg-yellow-500/20 text-yellow-600'
-                        : 'bg-green-500/20 text-green-400'
-                    }`}
-                  >
-                    {material.category}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-500 transition-colors">
-              {material.title}
-            </h3>
-            <p className=" text-sm mb-4">{material.description}</p>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2 text-sm text-gray-500" />
-              <a
-                href={material.downloadUrl}
-                download
-                className="px-4 py-2 bg-blue-500/70 hover:bg-blue-500 rounded-lg hover:shadow-lg transition-all duration-300 flex items-center space-x-2"
-              >
-                <Download className="w-4 h-4" />
-                <span>Download</span>
-              </a>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    )}
-  </div>
-</section>
-
-
-      {/* Tech Blogs */}
-      <section className="py-20 ">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 backdrop-blur-md">
+      {/* Learning Materials */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="mb-16"
+            className="mb-12"
           >
-            <div className="flex items-center space-x-3 mb-6">
-              <FileText className="w-8 h-8 text-electric-400" />
-              <h2 className="text-3xl md:text-4xl font-bold ">Tech Blogs</h2>
+            <div className="flex items-center space-x-3 mb-2">
+              <div className="w-10 h-10 rounded-xl border-2 border-black bg-yellow-400 text-black flex items-center justify-center shadow-[2px_2px_0_black]">
+                <BookOpen className="w-5 h-5" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-black">Learning Materials</h2>
             </div>
-            <p className="text-xl ">
-              Insights and tutorials written by our community members
+            <p className="text-base sm:text-lg text-neutral-700">
+              Download comprehensive guides, tutorials, and reference documentation built for robotics.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 ">
+          {filteredMaterials.length === 0 ? (
+            <div className="text-center py-16 px-4 rounded-2xl border-2 border-black bg-[#fffdf7] shadow-[6px_6px_0_black] max-w-md mx-auto">
+              <h3 className="text-xl font-bold mb-2 text-black">No material found</h3>
+              <p className="text-sm text-neutral-600 mb-4">Try selecting a different category or clearing the search query.</p>
+              <button
+                onClick={() => {
+                  setSelectedCategory('all');
+                  setSearchTerm('');
+                }}
+                className="px-4 py-2 rounded-xl border-2 border-black bg-blue-500 text-white font-bold text-sm shadow-[3px_3px_0_black] hover:shadow-[3px_3px_0_#facc15]"
+              >
+                Reset Filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {filteredMaterials.map((material, index) => (
+                <motion.div
+                  key={material.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05, duration: 0.5 }}
+                  className="group rounded-2xl border-2 border-black transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md p-6"
+                >
+                  <div>
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="w-12 h-12 rounded-xl border-2 border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0_black] bg-white">
+                        {material.type === 'pdf' ? (
+                          <FileText className="w-6 h-6 text-red-500" />
+                        ) : material.type === 'video' ? (
+                          <Video className="w-6 h-6 text-blue-500" />
+                        ) : (
+                          <Code className="w-6 h-6 text-emerald-500" />
+                        )}
+                      </div>
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-bold border-2 border-black capitalize ${
+                          material.category === 'programming'
+                            ? 'bg-blue-100 text-blue-800'
+                            : material.category === 'hardware'
+                            ? 'bg-red-100 text-red-800'
+                            : material.category === 'robotics'
+                            ? 'bg-yellow-200 text-yellow-900'
+                            : 'bg-emerald-100 text-emerald-800'
+                        }`}
+                      >
+                        {material.category}
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl font-bold text-black mb-2 group-hover:text-blue-600 transition-colors">
+                      {material.title}
+                    </h3>
+                    <p className="text-sm text-neutral-700 leading-relaxed mb-6">
+                      {material.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t-2 border-black/10 flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">
+                      {material.type.toUpperCase()} GUIDE
+                    </span>
+                    <a
+                      href={material.downloadUrl}
+                      download
+                      className="px-4 py-2 border-2 border-black bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm rounded-xl shadow-[3px_3px_0_black] hover:shadow-[3px_3px_0_#facc15] hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 transition-all duration-200 flex items-center space-x-2"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>Download</span>
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Tech Blogs */}
+      <section className="py-16 border-t-2 border-black/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mb-12"
+          >
+            <div className="flex items-center space-x-3 mb-2">
+              <div className="w-10 h-10 rounded-xl border-2 border-black bg-yellow-400 text-black flex items-center justify-center shadow-[2px_2px_0_black]">
+                <FileText className="w-5 h-5" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-black">Tech Blogs</h2>
+            </div>
+            <p className="text-base sm:text-lg text-neutral-700">
+              Insights, schematics, and tutorials written by μCR community members
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredBlogs.map((blog, index) => (
               <motion.article
                 key={blog.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                className=" rounded-lg overflow-hidden border-3 hover:border-blue-500 transition-all duration-300 group"
+                transition={{ delay: index * 0.08, duration: 0.6 }}
+                className="group rounded-2xl border-2 border-black transition-all duration-300 flex flex-col justify-between overflow-hidden relative hover:-translate-y-1 hover:shadow-[6px_6px_0_#facc15] shadow-[6px_6px_0_black] bg-[#fffdf7] backdrop-blur-md"
               >
-                <div className="aspect-video relative overflow-hidden p-4 ">
+                <div className="aspect-video relative overflow-hidden border-b-2 border-black bg-neutral-100">
                   <img
                     src={blog.image}
                     alt={blog.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-102 border rounded-xl"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-blue-500 text-white text-xs font-medium rounded-full">
+                  <div className="absolute top-3 left-3">
+                    <span className="px-3 py-1 bg-yellow-400 text-black border-2 border-black text-xs font-bold rounded-full shadow-[2px_2px_0_black]">
                       {blog.category}
                     </span>
                   </div>
                 </div>
 
-                <div className="p-6 space-y-4">
-                  <div className="flex items-center justify-between text-sm ">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-1">
-                        <Calendar className="w-4 h-4" />
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs font-semibold text-neutral-600">
+                      <div className="flex items-center space-x-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-neutral-500" />
                         <span>{new Date(blog.date).toLocaleDateString("en-GB")}</span>
                       </div>
-                      
+                      <span className="px-2 py-0.5 rounded border border-black/15 bg-white text-neutral-700">
+                        {blog.readTime}
+                      </span>
                     </div>
-                    <span>{blog.readTime}</span>
+
+                    <h3 className="text-xl font-bold text-black group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
+                      {blog.title}
+                    </h3>
+
+                    <p className="text-sm text-neutral-700 leading-relaxed line-clamp-3">
+                      {blog.excerpt}
+                    </p>
                   </div>
 
-                  <h3 className="text-xl font-semibold  group-hover:text-blue-500 transition-colors duration-300">
-                    {blog.title}
-                  </h3>
-
-                  <p className="text-sm leading-relaxed">{blog.excerpt}</p>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex flex-wrap gap-2">
+                  <div className="space-y-4 pt-2">
+                    <div className="flex flex-wrap gap-1.5">
                       {blog.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="flex items-center space-x-1 px-2 py-1 bg-gray-700 text-gray-300 text-xs rounded-full"
+                          className="inline-flex items-center space-x-1 px-2.5 py-1 bg-white border border-black/20 text-neutral-800 text-xs font-medium rounded-lg"
                         >
-                          <Tag className="w-3 h-3" />
+                          <Tag className="w-3 h-3 text-neutral-500" />
                           <span>{tag}</span>
                         </span>
                       ))}
                     </div>
-                  </div>
 
-                  <div className="flex felx-wrap items-center justify-between gap-2 pt-4 border-t backdrop-blur-md">
-                    <div className="text-sm text-gray-400">
-                      By{" "}
-                      {blog.authors.map((author, index) => (
-                        <span key={index}>
-                          <a
-                            href={author.insta}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline"
-                          >
-                            {author.name}
-                          </a>
-                          {index < blog.authors.length - 2 && ", "}
-                          {index === blog.authors.length - 2 && " & "}
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t-2 border-black/10 text-xs">
+                      <div className="text-neutral-700 font-medium">
+                        By{" "}
+                        {blog.authors.map((author, aIdx) => (
+                          <span key={aIdx}>
+                            <a
+                              href={author.insta}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 font-bold hover:underline"
+                            >
+                              {author.name}
+                            </a>
+                            {aIdx < blog.authors.length - 2 && ", "}
+                            {aIdx === blog.authors.length - 2 && " & "}
+                          </span>
+                        ))}
+                      </div>
 
-                        </span>
-                      ))}
+                      <Link
+                        to={`/blog/${blog.id}`}
+                        className="inline-flex items-center space-x-1 font-bold text-blue-600 hover:text-blue-800 transition-colors"
+                      >
+                        <span>Read Article</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
                     </div>
-
- <Link
-  to={`/blog/${blog.id}`}
-  className="flex items-center space-x-2 text-blue-400 hover:text-violet-300 transition-colors">
-  <span>Read More</span>
-  <ArrowRight className="w-4 h-4" />
-</Link>
                   </div>
                 </div>
               </motion.article>
@@ -616,6 +654,8 @@ const KnowledgeHub = () => {
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 };
