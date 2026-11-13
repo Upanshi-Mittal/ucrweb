@@ -51,15 +51,92 @@ Arduino comes with its own IDE (Integrated Development Environment), where you w
 1. **Install the Arduino IDE.**
 2. **Connect your Arduino board** to your PC using the USB cable.
 3. **Select the correct board and COM port** from \`Tools > Board\` and \`Tools > Port\`.
-4. **Write your first sketch**
+4. **Write, verify, and upload your first sketch.**
+
+---
+
+## 💡 The "Hello World" of Hardware: Blinking an LED
+
+Every hardware journey starts with blinking an LED. It verifies that your toolchain, compiler, USB driver, and microcontroller are functioning properly.
+
+### 📋 The Circuit:
+Connect an LED to digital pin 13 with a **220Ω current-limiting resistor**:
+- Long leg (Anode, +) ➔ Pin 13 through resistor
+- Short leg (Cathode, -) ➔ GND
+
+*(Tip: Arduino Uno also features an onboard LED pre-wired to pin 13, labeled **L**).*
+
+### 💻 The Code:
+
+\`\`\`cpp
+// Pin 13 has an onboard LED connected on most Arduino boards
+const int ledPin = 13;
+
+void setup() {
+  // initialize digital pin 13 as an output.
+  pinMode(ledPin, OUTPUT);
+  // initialize serial communication at 9600 baud for debugging
+  Serial.begin(9600);
+  Serial.println("System Initialized! Starting Blink sequence...");
+}
+
+void loop() {
+  digitalWrite(ledPin, HIGH);   // turn the LED on (HIGH is voltage level 5V)
+  Serial.println("LED Status: ON");
+  delay(1000);                  // wait for 1 second (1000 ms)
+
+  digitalWrite(ledPin, LOW);    // turn the LED off (LOW is 0V)
+  Serial.println("LED Status: OFF");
+  delay(1000);                  // wait for 1 second
+}
+\`\`\`
+
+---
+
+## 🧠 Anatomy of an Arduino Sketch
+
+Every Arduino program consists of two essential core functions:
+
+1. **\`void setup()\`**:
+   - Executes **once** when the board powers up or when you press the reset button.
+   - Used to configure pin modes (\`OUTPUT\`, \`INPUT\`, or \`INPUT_PULLUP\`), initialize communications (\`Serial.begin\`, \`Wire.begin\`), and set initial states.
+
+2. **\`void loop()\`**:
+   - Runs **continuously** in an infinite loop after \`setup()\` concludes.
+   - This is where you sample sensors, perform mathematical calculations, trigger logic, and command actuators.
+
+---
+
+## ⚡ Understanding Arduino Pins
+
+| Pin Type | Description | Key Functions |
+|---|---|---|
+| **Digital I/O (0 - 13)** | Binary inputs or outputs (0V or 5V) | \`digitalRead()\`, \`digitalWrite()\` |
+| **PWM (~3, ~5, ~6, ~9, ~10, ~11)** | Simulates analog output using high-frequency square wave switching | \`analogWrite(pin, 0-255)\` |
+| **Analog Inputs (A0 - A5)** | 10-bit Analog-to-Digital Converter (ADC) reading 0V to 5V (0 to 1023) | \`analogRead()\` |
+| **Power & Ground** | 5V, 3.3V, GND, and VIN for external DC input | Powers external sensors & breakout modules |
+
+---
+
+## ⚠️ Pro-Tips for Hardware Beginners
+
+- **Always use a current-limiting resistor** (220Ω – 1kΩ) with LEDs. Never connect an LED directly between 5V and GND!
+- **Respect current limits**: Each ATmega328P I/O pin can safely source/sink a maximum of **20–40mA**. For heavy loads like motors, servos, or relays, use a transistor, MOSFET, or motor driver.
+- **Floating inputs**: Unconnected input pins pick up ambient electromagnetic noise. Use \`pinMode(pin, INPUT_PULLUP)\` to enable internal 20kΩ pull-up resistors for tactile pushbuttons.
+- **Serial Monitor**: Press \`Ctrl + Shift + M\` in the IDE to view real-time printouts. Ensure your baud rate in code matches the monitor dropdown (e.g. 9600).
+
+---
+
+🛠️ **Happy Making!**
+
+*Got questions or project ideas involving Arduino? Join the discussion on our <a href="https://discord.gg/Jp4Kje999B" style="color:#1E90FF; text-decoration: none;" target="_blank">Discord server</a> and share your builds with the community!*
 `
-  }
-    ,
+  },
   {
-    id: "2",
+    id: 2,
     title: "Infrared Sensors in Robotics",
     image: "https://www.circuits-diy.com/wp-content/uploads/2021/10/ir-infrared-sensor-module-circuit-electronic-project.jpg",
-    date: "202-06-22",
+    date: "2025-06-22",
     author: [
       { name: "Kushal Makkar", insta: "https://www.instagram.com/kushal_m_06/" },
       { name: "Vanshika Aggarwal", insta: "https://www.instagram.com/vanshika_7605/" }
@@ -320,9 +397,9 @@ void loop() {
 }
 \`\`\`
 ---
-🛠️ Happy Making!
+🛠️ **Happy Making!**
 
-*Got questions or project ideas involving IR sensors? Join the discussion on our <a href="https://discord.gg/Jp4Kje999B" style="color:#1E90FF;  text-decoration: none;" target="_blank">Discord server</a> and share your builds with the community!*
+*Got questions or project ideas involving Servo Motors? Join the discussion on our <a href="https://discord.gg/Jp4Kje999B" style="color:#1E90FF; text-decoration: none;" target="_blank">Discord server</a> and share your builds with the community!*
 `,
   
 },
@@ -338,6 +415,7 @@ void loop() {
     readTime: "8 min read",
     excerpt: "Learn how 7-segment displays work to show numbers and characters, and explore practical wiring techniques to integrate them with microcontrollers.",
  content:`
+# 🔢 7-Segment Displays: Principles, Pinouts, and Interfacing
 
 7-segment displays are simple yet powerful electronic components used to visually represent numeric and limited alphabetic characters in electronic devices. In this blog, we’ll explore what 7-segment displays are, how they work, their types, practical applications, and how to control them effectively.
 
@@ -485,10 +563,10 @@ void displayDigit(int num) {
 
 7-segment displays remain a fundamental and reliable way to show simple numerical data in electronic devices. With basic Arduino coding and minimal hardware, they can bring life to a variety of DIY, industrial, and commercial projects.
 
- ---
-🛠️ Happy Making!
+---
+🛠️ **Happy Making!**
 
-*Got questions or project ideas involving IR sensors? Join the discussion on our <a href="https://discord.gg/Jp4Kje999B" style="color:#1E90FF;  text-decoration: none;" target="_blank">Discord server</a> and share your builds with the community!*
+*Got questions or project ideas involving 7-Segment Displays? Join the discussion on our <a href="https://discord.gg/Jp4Kje999B" style="color:#1E90FF; text-decoration: none;" target="_blank">Discord server</a> and share your builds with the community!*
  `
 ,
 
@@ -1047,7 +1125,7 @@ Whether you're wiring a robot motor or designing a control panel, the DPDT switc
 
 🛠️ **Happy Making!**
 
-*Got questions or project ideas involving NRF modules? Join the discussion on our <a href="https://discord.gg/Jp4Kje999B" style="color:#1E90FF; text-decoration: none;" target="_blank">Discord server</a> and share your builds with the community!*
+*Got questions or project ideas involving DPDT Switches? Join the discussion on our <a href="https://discord.gg/Jp4Kje999B" style="color:#1E90FF; text-decoration: none;" target="_blank">Discord server</a> and share your builds with the community!*
 `,
   tags: ["DPDT Switch", "Motor Reversal", "H-Bridge"],
   category: "Hardware",

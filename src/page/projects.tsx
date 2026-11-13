@@ -371,17 +371,17 @@ const Projects: React.FC = () => {
                         className="text-center space-y-6"
                     >
                         
-                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-                            Our Projects
+                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-black">
+                            Featured Engineering Projects
                         </h1>
-                        <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed">
-                            From agile autonomous rovers and IoT telemetry hubs to assistive wearable devices — explore the custom hardware, circuit architectures, and intelligent firmware built by μCR members.
+                        <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed text-neutral-700">
+                            From battle-tested combat bots and precision line racers to IoT telemetry stations and assistive wearables — explore the custom hardware, circuit architectures, and intelligent firmware engineered by μCR members.
                         </p>
                     </motion.div>
                 </div>
             </section>
 
-            <section ref={statsRef} className="py-12 border-y border-gray-800">
+            <section ref={statsRef} className="py-12 border-y-2 border-black/10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                         {projectStats.map((stat, index) => (
@@ -782,10 +782,10 @@ const Projects: React.FC = () => {
                         className="space-y-6"
                     >
                         <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-black">
-                            Have an Idea? Build With μCR
+                            Have a Hardware Idea? Build It With μCR
                         </h2>
                         <p className="text-base sm:text-xl leading-relaxed max-w-2xl mx-auto text-neutral-700">
-                            Whether you want to construct an autonomous rover, explore sensor fusion, or manufacture custom PCB micro-controllers, our hub provides the components, equipment, and peer mentorship you need.
+                            Whether you want to construct an autonomous rover, explore multi-sensor telemetry, or spin your first custom PCB, our SAC bench provides the microcontrollers, test equipment, and peer mentorship to bring it to life.
                         </p>
                         <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                             <Link

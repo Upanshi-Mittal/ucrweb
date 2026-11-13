@@ -107,6 +107,8 @@ export default function BlogPost() {
             <img
               src={blog.image}
               alt={blog.title}
+              decoding="async"
+              fetchPriority="high"
               className={`w-full ${
                 blog.id === 11
                   ? "max-h-72 object-contain p-4 bg-white"

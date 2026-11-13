@@ -385,11 +385,10 @@ const KnowledgeHub = () => {
             className="text-center space-y-6"
           >
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-black">
-              Knowledge Hub
+              μCR Knowledge Hub
             </h1>
             <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed text-neutral-700">
-              Access our comprehensive collection of learning materials, tutorials, and tech blogs
-              to enhance your robotics knowledge and skills.
+              Explore open-source engineering schematics, microcontroller tutorials, and deep-dive technical articles written by student roboticists and mentors.
             </p>
           </motion.div>
         </div>
@@ -406,7 +405,7 @@ const KnowledgeHub = () => {
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search materials and blogs..."
+                placeholder="Search microcontrollers, sensors, schematics..."
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border-2 border-black bg-white text-black text-sm shadow-[2px_2px_0_black] focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-black transition-all placeholder:text-neutral-400"
               />
               {searchTerm && (
@@ -459,7 +458,7 @@ const KnowledgeHub = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-black">Learning Materials</h2>
             </div>
             <p className="text-base sm:text-lg text-neutral-700">
-              Download comprehensive guides, tutorials, and reference documentation built for robotics.
+              Download step-by-step PDF schematics, pinout guides, and lab tutorials curated for hands-on robotics development.
             </p>
           </motion.div>
 
@@ -559,7 +558,7 @@ const KnowledgeHub = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-black">Tech Blogs</h2>
             </div>
             <p className="text-base sm:text-lg text-neutral-700">
-              Insights, schematics, and tutorials written by μCR community members
+              Technical deep-dives, circuit breakdowns, and component explorations penned by μCR engineers.
             </p>
           </motion.div>
 
@@ -577,6 +576,8 @@ const KnowledgeHub = () => {
                   <img
                     src={blog.image}
                     alt={blog.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute top-3 left-3">

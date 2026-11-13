@@ -17,10 +17,10 @@ function Home() {
     };
 
     const stats = [
-        { icon: Users, value: 200, label: 'Proud Alumni', suffix: '+', iconcol: "red" },
-        { icon: Calendar, value: 50, label: 'Past Events', suffix: '+', iconcol: "green" },
-        { icon: Trophy, value: 20, label: 'Competitions Conquered', suffix: '+', iconcol: "yellow" },
-        { icon: Zap, value: 20, label: 'Years of Excellence', suffix: '', iconcol: "blue" },
+        { icon: Users, value: 200, label: 'Proud Alumni & Builders', suffix: '+', iconcol: "red" },
+        { icon: Calendar, value: 50, label: 'Workshops & Hackathons', suffix: '+', iconcol: "green" },
+        { icon: Trophy, value: 20, label: 'National Podiums & Awards', suffix: '+', iconcol: "yellow" },
+        { icon: Zap, value: 20, label: 'Years of Hardware Legacy', suffix: '', iconcol: "blue" },
     ];
 
     return (
@@ -29,18 +29,18 @@ function Home() {
                 <Sac />
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none select-none z-30 flex flex-col items-center gap-2">
                     <div className="flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-black bg-[#fffdf7]/95 text-black backdrop-blur-md text-xs sm:text-sm font-bold tracking-wide shadow-[4px_4px_0_black]">
-                        <span>↔ Drag horizontally to explore events & projects • Click cards to view</span>
+                        <span>↔ Rotate 360° to explore our lab • Click any card for event highlights</span>
                     </div>
                 </div>
             </section>
             <section id="impact" ref={statsRef} className="relative z-10 w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-t">
                 <div className="max-w-7xl mx-auto flex flex-col items-center">
-                    <div className="text-center max-w-2xl mx-auto mb-16 space-y-1">
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-                            Our Impact in Numbers
+                    <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black">
+                            Engineering Impact in Numbers
                         </h2>
-                        <p className="text-base sm:text-lg leading-relaxed">
-                            Empowering innovators, competing at the highest levels, and building a community that lasts.
+                        <p className="text-base sm:text-lg leading-relaxed text-neutral-700">
+                            From late-night soldering at the SAC bench to national robotics podiums — fostering hands-on builders, competitive grit, and lasting hardware excellence.
                         </p>
                     </div>
                     <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">

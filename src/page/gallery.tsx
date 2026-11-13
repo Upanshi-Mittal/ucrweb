@@ -131,6 +131,7 @@ function DriveImage({ id, width, alt, className, lazy = true }: DriveImageProps)
             referrerPolicy="no-referrer"
             alt={alt}
             loading={lazy ? 'lazy' : 'eager'}
+            decoding="async"
             onError={() => setFailed(true)}
             className={className}
         />
@@ -171,9 +172,9 @@ function EventGrid() {
                     transition={{ duration: 0.8 }}
                     className="text-center space-y-6 mb-16"
                 >
-                    <h1 className="text-4xl md:text-6xl font-bold">Gallery</h1>
-                    <p className="text-xl md:text-2xl max-w-4xl mx-auto">
-                        Moments from μCR events and workshops. Pick an event to browse and download its photos.
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-black">μCR Event Gallery</h1>
+                    <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed text-neutral-700">
+                        Capturing the intensity, late-night bench sessions, and tournament triumphs of μCR. Select an album to explore and download high-resolution captures.
                     </p>
                 </motion.div>
 

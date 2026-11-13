@@ -4,14 +4,14 @@ import { useEffect, useRef, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ExternalLink, Calendar, Sparkles } from 'lucide-react';
 
-import px from '../assets/5/px.jpg';
-import nx from '../assets/5/nx.jpg';
-import py from '../assets/5/py.jpg';
-import ny from '../assets/5/ny.jpg';
-import pz from '../assets/5/pz.jpg';
-import nz from '../assets/5/nz.jpg';
+import px from '../assets/5/px.webp';
+import nx from '../assets/5/nx.webp';
+import py from '../assets/5/py.webp';
+import ny from '../assets/5/ny.webp';
+import pz from '../assets/5/pz.webp';
+import nz from '../assets/5/nz.webp';
 
-import orientationImg from '../assets/orientation.jpg';
+import orientationImg from '../assets/orientation.webp';
 
 interface EventCardItem {
     id: string;
@@ -481,6 +481,8 @@ const Sac = () => {
                                     <img
                                         src={card.image}
                                         alt={card.title}
+                                        loading="lazy"
+                                        decoding="async"
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                         draggable={false}
                                     />

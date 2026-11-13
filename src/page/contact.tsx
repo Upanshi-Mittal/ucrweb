@@ -128,7 +128,7 @@ const Contact: React.FC = () => {
               Contact & Connect
             </h1>
             <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed text-neutral-700">
-              Have questions, ideas, or feedback? Reach out to μCR — we're excited to connect, collaborate, and welcome you into our robotics community.
+              Have questions about our robots, want to pitch a collaborative build, or looking to sponsor our team? Reach out to the μCR community.
             </p>
           </motion.div>
         </div>
@@ -155,8 +155,7 @@ const Contact: React.FC = () => {
                   Get in Touch
                 </h2>
                 <p className="text-sm sm:text-base text-neutral-700 leading-relaxed">
-                  Whether you're interested in joining our team, collaborating on projects,
-                  or just want to learn more about robotics, we'd love to hear from you.
+                  Whether you're a student looking to get hands-on with microcontrollers, an organization proposing a technical workshop, or an industry partner seeking collaboration, our doors are always open.
                 </p>
               </div>
 
@@ -259,7 +258,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-xl sm:text-2xl font-bold text-black">Send Us Feedback</h3>
-                  <p className="text-xs sm:text-sm text-neutral-600">We appreciate ideas, questions, and collaborations</p>
+                  <p className="text-xs sm:text-sm text-neutral-600">Share suggestions, technical questions, or project collaboration ideas</p>
                 </div>
               </div>
 

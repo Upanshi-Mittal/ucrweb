@@ -10,25 +10,25 @@ const About: React.FC = () => {
     {
       icon: Wrench,
       title: "Hands-on Workshops",
-      description: "From blinking LEDs to autonomous bots — explore robotics through regular workshops centered on Arduino, Raspberry Pi, and real-world applications. No lectures, just hands-on tech.",
+      description: "From first-time LED circuits to multi-core autonomous rovers — we run intensive hardware bootcamps on Arduino, STM32, ESP32, and Raspberry Pi. Zero passive lectures, 100% bench time and breadboards.",
       color: "bg-red-500 text-white"
     },
     {
       icon: Users,
       title: "Project Exhibitions", 
-      description: "Showcasing member built robots and systems, from intelligent bots to autonomous tech, at campus-wide exhibitions and national tech fests.",
+      description: "Deploying and exhibiting member-built systems — holonomic soccer bots, obstacle-navigating rovers, and IoT telemetry rigs — across campus showcases and national engineering expos.",
       color: "bg-blue-500 text-white"
     },
     {
       icon: Award,
-      title: "Competitions",
-      description: "Engaging in national-level robotics leagues that challenge technical expertise, hardware design, and agile team collaboration under pressure.",
+      title: "Competitive Robotics",
+      description: "Fielding battle-tested robots in national leagues, time-trial maze races, and robosoccer tournaments where split-second control and robust mechanical fabrication decide the podium.",
       color: "bg-yellow-400 text-black"
     },
     {
       icon: Lightbulb,
       title: "Knowledge Sharing",
-      description: "Peer-led tutorials, schematics reviews, and open documentation to strengthen core robotics, microcontrollers, and embedded programming.",
+      description: "Open-source culture at heart: peer-led schematic reviews, firmware debugging circles, component libraries, and beginner-to-advanced guides written by students, for students.",
       color: "bg-emerald-500 text-white"
     }
   ];
@@ -51,7 +51,7 @@ const About: React.FC = () => {
               About μCR
             </h1>
             <p className="text-lg md:text-2xl text-neutral-700 leading-relaxed font-medium">
-              Microcontroller-Based Systems and Robotics Hub at JIIT.<br />
+              Jaypee Institute of Information Technology’s hub for embedded systems, autonomous robotics, and hardware innovation.<br />
               <span className="text-neutral-900 font-bold">Dream. Build. Innovate. Repeat.</span>
             </p>
           </motion.div>
@@ -69,10 +69,10 @@ const About: React.FC = () => {
             className="text-center mb-16 space-y-2"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black">
-              Our Core Activities
+              What We Do at μCR
             </h2>
             <p className="text-base sm:text-lg text-neutral-700 max-w-2xl mx-auto">
-              Comprehensive learning experiences engineered to build real technical capability.
+              From foundational circuitry to competitive national arena leagues — here is how we build real engineering capability.
             </p>
           </motion.div>
 
@@ -132,10 +132,7 @@ const About: React.FC = () => {
                 Where Curiosity Powers Creation
               </h2>
               <p className="text-base sm:text-lg text-neutral-700 leading-relaxed max-w-3xl mx-auto">
-                μCR isn't just a hub — it's a workshop of minds. We bring together tinkerers, coders, builders, and dreamers
-                to design and deploy real tech solutions. From tackling hardware challenges to writing intelligent control code,
-                our members learn by building, not just by reading. Whether it's a maze-solving robot or a homegrown AI system,
-                every project is a step closer to engineering something that matters.
+                μCR isn't just a college society — it’s a living workshop. We bring together circuit tinkerers, firmware programmers, CAD designers, and robotics enthusiasts to build hardware that solves real problems. In our SAC lab, learning doesn't happen behind desks; it happens across oscilloscope screens, solder smoke, motor driver testing, and iterative design. Whether it’s an agile line-maze racer, a disaster-response rover, or a smart IoT ecosystem, every prototype is proof that student curiosity can engineer the future.
               </p>
             </div>
           </motion.div>

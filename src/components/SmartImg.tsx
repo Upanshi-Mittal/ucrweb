@@ -27,6 +27,7 @@ export const SmartImg: React.FC<SmartImgProps> = ({
     width={width}
     height={height}
     loading="lazy"
+    decoding="async"
     className={className}
     style={{ objectFit: 'cover' }}
   />
