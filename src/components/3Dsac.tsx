@@ -13,11 +13,11 @@ import nz from '../assets/5/nz.webp';
 
 import orientationImg from '../assets/orientation.webp';
 import clawclashImg from '../assets/clawclash.webp';
-import coreteam from '../assets/coreteam.jpeg';
-import ucrlife from '../assets/ucrlife.jpeg';
-import hardware from '../assets/hardware.jpeg';
-import software from '../assets/software.png';
-import robosoccer from '../assets/robosoccer.jpg'
+import coreteam from '../assets/coreteam.webp';
+import ucrlife from '../assets/ucrlife.webp';
+import hardware from '../assets/hardware.webp';
+import software from '../assets/software.webp';
+import robosoccer from '../assets/robosoccer.webp'
 import rcplane from '../assets/rcplane.webp'
 interface EventCardItem {
     id: string;
