@@ -65,7 +65,7 @@ const About: React.FC = () => {
             <span className="px-3.5 py-1 rounded-full text-xs font-bold border-2 border-black bg-yellow-400 text-black inline-block">
               WHO WE ARE
             </span>
-            <h1 className="text-5xl md:text-8xl font-bold tracking-tight text-black">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-black">
               About μCR
             </h1>
             <p className="text-lg md:text-2xl text-neutral-700 leading-relaxed font-medium">
