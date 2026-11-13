@@ -12,7 +12,13 @@ import pz from '../assets/5/pz.webp';
 import nz from '../assets/5/nz.webp';
 
 import orientationImg from '../assets/orientation.webp';
-
+import clawclashImg from '../assets/clawclash.webp';
+import coreteam from '../assets/coreteam.jpeg';
+import ucrlife from '../assets/ucrlife.jpeg';
+import hardware from '../assets/hardware.jpeg';
+import software from '../assets/software.png';
+import robosoccer from '../assets/robosoccer.jpg'
+import rcplane from '../assets/rcplane.webp'
 interface EventCardItem {
     id: string;
     title: string;
@@ -59,12 +65,19 @@ const Sac = () => {
     const handlePointerMove = (e: React.PointerEvent) => {
         const dx = e.clientX - pointerStartRef.current.x;
         const dy = e.clientY - pointerStartRef.current.y;
-        if (Math.hypot(dx, dy) > 6) {
+        if (Math.hypot(dx, dy) > 4) {
             isDraggingRef.current = true;
         }
     };
 
+    const handlePointerUp = (e: React.PointerEvent) => {
+        // Reset dragging flag; a click without movement should navigate
+        isDraggingRef.current = false;
+    };
+
+    // Existing handlers unchanged
     const handleCardClick = (link: string) => {
+        console.log('Card clicked, navigating to', link);
         if (isDraggingRef.current) return; // Prevent navigation if user was orbiting
         navigate(link);
     };
@@ -79,11 +92,11 @@ const Sac = () => {
             baseAngle: 0, // Front view (default)
             cards: [
                 {
-                    id: 'orientation25',
-                    title: 'Orientation ’25 & Hands-On Robotics',
-                    tag: 'Flagship Event',
+                    id: 'orientation26',
+                    title: 'Orientation ’26 & Hands-On Robotics',
+                    tag: 'Introductory Event',
                     tagColor: 'bg-yellow-400 text-black',
-                    subtitle: 'Annual club orientation, live bot showcase & sensor hacking session',
+                    subtitle: 'Annual club orientation, live bot showcase & hands on where 1st learn about hub and its activity.',
                     image: orientationImg,
                     dateOrMeta: '11-13 Sept • LT3 & TV Room',
                     link: '/gallery',
@@ -91,13 +104,13 @@ const Sac = () => {
                     yOffset: -0.7,
                 },
                 {
-                    id: 'robomania',
-                    title: 'RoboMania Combat League',
-                    tag: 'Combat Arena',
+                    id: 'clawclash',
+                    title: 'Clawclash',
+                    tag: 'Flagship Event . LIVE',
                     tagColor: 'bg-red-500 text-white',
-                    subtitle: 'Heavyweight bot clashes, pneumatic flippers & national championships',
-                    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80',
-                    dateOrMeta: 'Annual Fest • Arena Battle',
+                    subtitle: 'Pick and Place bots competitions with crazy twist',
+                    image: clawclashImg,
+                    dateOrMeta: '2026 event • Arena Battle',
                     link: '/projects',
                     angleOffset: 0.25,
                     yOffset: -0.7,
@@ -106,68 +119,68 @@ const Sac = () => {
         },
         {
             id: 'flagship',
-            title: 'Flagship Inventions',
+            title: 'Flagship Projects',
             subtitle: '25+ Prototypes • Custom Circuit & Firmware Designs',
-            baseAngle: Math.PI / 2, // 90 degrees right
+            baseAngle: Math.PI / 2, 
             cards: [
                 {
                     id: 'robosoccer',
-                    title: 'RoboSoccer Striker & Goalie Duo',
+                    title: 'RoboSoccer Striker',
                     tag: 'Autonomous',
                     tagColor: 'bg-blue-500 text-white',
                     subtitle: 'High-speed competitive omni-drive robots with pneumatic kicker systems',
-                    image: 'https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&w=600&q=80',
+                    image: robosoccer,
                     dateOrMeta: 'NRF24L01+ • Omni-Wheel',
                     link: '/projects',
                     angleOffset: -0.25,
                     yOffset: -0.7,
                 },
                 {
-                    id: 'gridrunner',
-                    title: 'GridRunner PID Maze Racer',
-                    tag: 'Speed & Logic',
-                    tagColor: 'bg-yellow-400 text-black',
-                    subtitle: '500Hz discrete PID control loops with high-speed line & maze navigation',
-                    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
-                    dateOrMeta: '1st Place • Time-Trial Winner',
+                    id: 'RC Plane',
+                    title: 'Autonomous RC Plane',
+                    tag: 'Flight Control & Aerodynamics',
+                    tagColor: 'bg-sky-400 text-black',
+                    subtitle: 'Fixed-wing RC aircraft with servo-based control, flight stabilization and autonomous navigation',
+                    image: rcplane,
+                    dateOrMeta: 'RC Aircraft • Autonomous Flight',
                     link: '/projects',
                     angleOffset: 0.25,
                     yOffset: -0.7,
-                },
+                }
             ],
         },
         {
-            id: 'exhibitions',
-            title: 'Exhibitions & Community',
-            subtitle: 'Campus Demonstrations • 200+ Proud Alumni',
-            baseAngle: Math.PI, // 180 degrees back
+            id: 'domains',
+            title: 'Explore Engineering Domains',
+            subtitle: 'Software • Electronics • Embedded • Mechanical',
+            baseAngle: Math.PI,
             cards: [
                 {
-                    id: 'spectra',
-                    title: 'Spectra Annual Tech Showcase',
-                    tag: 'Exhibition',
-                    tagColor: 'bg-emerald-500 text-white',
-                    subtitle: 'Live multi-robot demonstrations, student interactive games & exhibitions',
-                    image: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=600&q=80',
-                    dateOrMeta: 'Campus Fest • Open Access',
-                    link: '/gallery',
+                    id: 'software',
+                    title: 'Software & Intelligent Systems',
+                    tag: 'Code the Intelligence',
+                    tagColor: 'bg-blue-500 text-white',
+                    subtitle: 'Robotics software, computer vision, AI/ML and autonomous system development',
+                    image: software,
+                    dateOrMeta: 'Software • AI • Computer Vision',
+                    link: '/domains',
                     angleOffset: -0.25,
                     yOffset: -0.7,
                 },
                 {
-                    id: 'pyroguard',
-                    title: 'PyroGuard Autonomous Rover',
-                    tag: 'Hazard Rescue',
-                    tagColor: 'bg-red-500 text-white',
-                    subtitle: 'Hazardous corridor navigation with thermal anomaly detection & suppression',
-                    image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=600&q=80',
-                    dateOrMeta: 'Thermal Sensors • Servo Nozzle',
-                    link: '/projects',
+                    id: 'hardware',
+                    title: 'Embedded & Hardware Systems',
+                    tag: 'Engineer the Machine',
+                    tagColor: 'bg-orange-500 text-white',
+                    subtitle: 'Microcontrollers, electronics, sensors, motor control and real-world hardware integration',
+                    image: hardware,
+                    dateOrMeta: 'Electronics • Embedded • Control',
+                    link: '/domains',
                     angleOffset: 0.25,
                     yOffset: -0.7,
                 },
             ],
-        },
+        },        
         {
             id: 'team',
             title: 'Core Team & Recruitment',
@@ -176,25 +189,25 @@ const Sac = () => {
             cards: [
                 {
                     id: 'coreteam',
-                    title: 'Meet the Engineering Team',
-                    tag: 'Minds Behind μCR',
+                    title: 'Meet the Minds Behind μCR',
+                    tag: 'The People Behind the Builds',
                     tagColor: 'bg-purple-600 text-white',
-                    subtitle: 'Passionate builders across technical, embedded, and management domains',
-                    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
-                    dateOrMeta: 'Advisors & Heads • 2024-25',
+                    subtitle: 'Meet the mentors, leaders and passionate builders driving μCR forward across technical, embedded and management domains.',
+                    image: coreteam,
+                    dateOrMeta: 'Advisors & Core Team • 2026-27',
                     link: '/team',
                     angleOffset: -0.25,
                     yOffset: -0.7,
                 },
                 {
-                    id: 'joinus',
-                    title: 'Join μCR Robotics Hub',
-                    tag: 'Apply Now',
+                    id: 'lifeatmucr',
+                    title: 'Life at μCR',
+                    tag: 'More Than Robotics',
                     tagColor: 'bg-teal-600 text-white',
-                    subtitle: 'Ready to build autonomous robots and solve real engineering challenges?',
-                    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80',
-                    dateOrMeta: 'Recruitment Open • SAC Bench',
-                    link: '/contact',
+                    subtitle: 'The people, teamwork, chaos and unforgettable experiences behind every build.',
+                    image: ucrlife,
+                    dateOrMeta: 'People • Projects • Memories',
+                    link: '/gallery',
                     angleOffset: 0.25,
                     yOffset: -0.7,
                 },
@@ -431,6 +444,7 @@ const Sac = () => {
             ref={containerRef}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
             className="relative w-full h-full select-none overflow-hidden cursor-grab active:cursor-grabbing"
         >
             {/* Three.js WebGL Canvas */}
@@ -440,7 +454,7 @@ const Sac = () => {
             />
 
             {/* 3D Floating Billboards / Event Clusters */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden z-20">
+            <div className="absolute inset-0 overflow-hidden z-20">
                 {clusters.map((cluster, clusterIdx) => (
                     <div key={cluster.id}>
                         {/* Cluster Category Title */}
@@ -510,10 +524,10 @@ const Sac = () => {
                                     </p>
 
                                     {/* Action link */}
-                                    <div className="pt-2 border-t-2 border-black/10 flex items-center justify-between text-xs font-bold text-blue-600 group-hover:text-blue-800 transition-colors">
+                                    {/*<div className="pt-2 border-t-2 border-black/10 flex items-center justify-between text-xs font-bold text-blue-600 group-hover:text-blue-800 transition-colors">
                                         <span>Explore Details</span>
                                         <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                                    </div>
+                                    </div>*/}
                                 </div>
                             </div>
                         ))}
