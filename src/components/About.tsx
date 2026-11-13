@@ -36,7 +36,7 @@ const About: React.FC = () => {
   return (
     <div className="w-full flex flex-col">
       {/* About Header */}
-      <section className="py-12 sm:py-16">
+      <section className="py-6 sm:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -59,7 +59,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Activities Section */}
-      <section className="py-12 sm:py-16 border-t-2 border-black/10">
+      <section className="py-6 sm:py-10 border-t-2 border-black/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -109,7 +109,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Manifesto Card with Hazard Stripes */}
-      <section ref={missionRef} className="py-16 sm:py-24">
+      <section ref={missionRef} className="py-10 sm:py-14">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

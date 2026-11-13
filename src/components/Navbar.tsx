@@ -20,11 +20,13 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', path: '/' },
+    {name: 'About', path: '/about'},
     { name: 'Gallery', path: '/gallery' },
     { name: 'Projects', path: '/projects' },
     { name: 'Team', path: '/team' },
     { name: 'Knowledge Hub', path: '/knowledge' },
     { name: 'Contact', path: '/contact' },
+    
   ];
 
   return (
@@ -34,7 +36,6 @@ const Navbar = () => {
       className="fixed top-0 left-0 right-0 w-full z-50 px-4 sm:px-6 lg:px-8 pointer-events-none transition-all duration-300"
     >
       <div className="max-w-7xl mx-auto my-3 relative pointer-events-auto group">
-        {/* Outer 3D dashed/striped background box - sized & aligned precisely with the navbar */}
         <div
           className="absolute inset-0 rounded-2xl border-2 border-black translate-x-2 translate-y-2 sm:translate-x-2.5 sm:translate-y-2.5 transition-transform duration-300 pointer-events-none"
           style={{
@@ -43,7 +44,6 @@ const Navbar = () => {
           }}
         />
 
-        {/* Foreground Navbar Card */}
         <div className="relative z-10 rounded-2xl border-2 border-black bg-white px-4 sm:px-6 lg:px-8 shadow-sm">
           <div className="flex flex-col sm:flex-row items-center justify-between h-16">
             <div

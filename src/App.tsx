@@ -8,6 +8,7 @@ import Team from './page/team';
 import NotFound from './page/notfound';
 import Navbar from './components/Navbar';
 import BlogPost from './page/BlogPosts'; 
+import About from './page/About'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/knowledge" element={<Knowledge />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/blog/:id" element={<BlogPost />} />
+      <Route path="/about" element={<About />} />
       <Route path="*" element={<NotFound />} />
     </Routes></>
     

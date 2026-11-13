@@ -1,5 +1,4 @@
 import Sac from "../components/3Dsac";
-import About from "../components/About";
 import "../components/home.css";
 import AnimatedCounter from '../components/AnimatedCounter';
 import { useInView } from 'react-intersection-observer';
@@ -33,58 +32,6 @@ function Home() {
                     </div>
                 </div>
             </section>
-            <section id="impact" ref={statsRef} className="relative z-10 w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-t">
-                <div className="max-w-7xl mx-auto flex flex-col items-center">
-                    <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black">
-                            Engineering Impact in Numbers
-                        </h2>
-                        <p className="text-base sm:text-lg leading-relaxed text-neutral-700">
-                            From late-night soldering at the SAC bench to national robotics podiums — fostering hands-on builders, competitive grit, and lasting hardware excellence.
-                        </p>
-                    </div>
-                    <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
-                        {stats.map((stat, index) => (
-                            <motion.div
-                                key={stat.label}
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={statsInView ? { opacity: 1, y: 0 } : {}}
-                                transition={{ delay: index * 0.1, duration: 0.6 }}
-                                className="relative group"
-                            >
-                                <div
-                                    className="absolute inset-0 rounded-2xl border-2 border-black translate-x-3 translate-y-3 transition-transform duration-300 group-hover:translate-x-4 group-hover:translate-y-4"
-                                    style={{
-                                        backgroundColor: '#facc15',
-                                        backgroundImage: 'repeating-linear-gradient(45deg, #000 0, #000 2.5px, transparent 0, transparent 9px)',
-                                    }}
-                                />
-
-                                {/* Foreground Impact Card with White Background */}
-                                <div className="relative z-10 flex flex-col items-center justify-center p-6 rounded-2xl border-2 border-black bg-white text-black transition-all duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 shadow-lg">
-                                    <div
-                                        className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 shadow-sm ${iconColors[stat.iconcol] || ""}`}
-                                    >
-                                        <stat.icon className="w-8 h-8 text-white" />
-                                    </div>
-                                    <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-2 text-black">
-                                        {statsInView ? (
-                                            <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                                        ) : (
-                                            <span>0{stat.suffix}</span>
-                                        )}
-                                    </div>
-                                    <div className="text-sm sm:text-base font-bold text-center tracking-wide text-neutral-800">
-                                        {stat.label}
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-            <About />
-            <Footer />
         </main>
     );
 }

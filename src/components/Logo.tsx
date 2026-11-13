@@ -1,7 +1,7 @@
 // src/components/Logo.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 
 const Logo = () => {
   return (
