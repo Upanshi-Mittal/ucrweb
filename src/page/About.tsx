@@ -54,8 +54,8 @@ const About: React.FC = () => {
   return (
     <div className="w-full flex flex-col">
       
-      <section className="py-28 sm:py-26">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-28 sm:py-26 relative z-10 w-full sm:py-20 px-4 sm:px-6 lg:px-8 border-t" id="impact" ref={statsRef}>
+        <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -65,7 +65,7 @@ const About: React.FC = () => {
             <span className="px-3.5 py-1 rounded-full text-xs font-bold border-2 border-black bg-yellow-400 text-black inline-block">
               WHO WE ARE
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-black">
+            <h1 className="text-5xl md:text-8xl font-bold tracking-tight text-black">
               About μCR
             </h1>
             <p className="text-lg md:text-2xl text-neutral-700 leading-relaxed font-medium">
@@ -74,8 +74,6 @@ const About: React.FC = () => {
             </p>
           </motion.div>
         </div>
-      </section>
-      <section id="impact" ref={statsRef} className="relative z-10 w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-t">
         <div className="max-w-7xl mx-auto flex flex-col items-center">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black">
