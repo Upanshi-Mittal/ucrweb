@@ -20,13 +20,13 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', path: '/' },
-    {name: 'About', path: '/about'},
+    { name: 'About', path: '/about' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'Projects', path: '/projects' },
     { name: 'Team', path: '/team' },
     { name: 'Knowledge Hub', path: '/knowledge' },
     { name: 'Contact', path: '/contact' },
-    
+
   ];
 
   return (
@@ -45,7 +45,7 @@ const Navbar = () => {
         />
 
         <div className="relative z-10 rounded-2xl border-2 border-black bg-white px-4 sm:px-6 lg:px-8 shadow-sm">
-          <div className="flex flex-col sm:flex-row items-center justify-between h-16">
+          <div className="flex flex-col flex-row items-center justify-between h-16">
             <div
               className="flex items-center space-x-2 cursor-pointer"
               onClick={() => {
@@ -60,7 +60,7 @@ const Navbar = () => {
               }}
             >
               <Logo />
-              <div className="flex flex-col leading-tight sm:leading-snug">
+              <div className="hidden sm:flex flex-col leading-tight">
                 <span className="text-sm sm:text-lg font-bold text-black">
                   Microcontroller-Based Systems
                 </span>
@@ -76,11 +76,10 @@ const Navbar = () => {
                   <Link
                     key={item.name}
                     to={item.path}
-                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 ${
-                      location.pathname === item.path
+                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 ${location.pathname === item.path
                         ? 'text-red-600 font-bold bg-red-50'
                         : 'text-black hover:text-yellow-600 hover:bg-neutral-50'
-                    }`}
+                      }`}
                   >
                     {item.name}
                   </Link>
@@ -111,11 +110,10 @@ const Navbar = () => {
                   key={item.name}
                   to={item.path}
                   onClick={() => setIsOpen(false)}
-                  className={`block px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                    location.pathname === item.path
+                  className={`block px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${location.pathname === item.path
                       ? 'text-red-600 font-bold bg-red-50'
                       : 'text-black hover:bg-neutral-100'
-                  }`}
+                    }`}
                 >
                   {item.name}
                 </Link>
