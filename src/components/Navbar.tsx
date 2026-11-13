@@ -31,7 +31,7 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 w-full z-50 px-4 sm:px-6 lg:px-8 pointer-events-none transition-all duration-300"
+      className="fixed top-0 left-0 right-0 w-full z-50 px-4 sm:px-6 lg:px-8 transition-all duration-300"
     >
       <div className="max-w-7xl mx-auto my-3 relative pointer-events-auto group">
         {/* Outer 3D dashed/striped background box - sized & aligned precisely with the navbar */}
