@@ -7,6 +7,8 @@ import Contact from './page/contact';
 import Team from './page/team';
 import NotFound from './page/notfound';
 import Navbar from './components/Navbar';
+import BlogPost from './page/BlogPosts'; 
+
 function App() {
   return (
     <>
@@ -18,6 +20,7 @@ function App() {
       <Route path="/team" element={<Team />} />
       <Route path="/knowledge" element={<Knowledge />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/blog/:id" element={<BlogPost />} />
       <Route path="*" element={<NotFound />} />
     </Routes></>
     
