@@ -17,13 +17,22 @@ import boa from "../assets/resource/Basics_of_Arduino.pdf";
 import advance from "../assets/resource/Advance_Ardunio.pdf";
 import basicEle from "../assets/resource/basic_electronics.pdf";
 import motor from "../assets/resource/Motors.pdf";
-
-
+import Clawclash from "../assets/resource/Clawclash.pdf"
+import CCposter from "../assets/clawclash.webp"
 const KnowledgeHub = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const learningMaterials = [
+    {
+        id: 0,
+        title: "Clawclash PPT",
+      type: "pdf",
+      category: "event",
+      description: "The presentation shared during Day 1 of ClawClash, covering the event introduction, robot-building fundamentals, and key concepts to help participants get started.",
+      downloadUrl: Clawclash,
+      image: CCposter
+    },
     {
       id: 1,
       title: "Bluetooth Controlled Robot",
@@ -494,9 +503,12 @@ const KnowledgeHub = () => {
                           <FileText className="w-6 h-6 text-red-500" />
                         ) : material.type === 'video' ? (
                           <Video className="w-6 h-6 text-blue-500" />
-                        ) : (
+                        ) : material.type === 'event' ? (
+                          <img src={material.image}  />
+                        ) :(
                           <Code className="w-6 h-6 text-emerald-500" />
-                        )}
+                        )
+                        }
                       </div>
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-bold border-2 border-black capitalize ${
@@ -506,7 +518,10 @@ const KnowledgeHub = () => {
                             ? 'bg-red-100 text-red-800'
                             : material.category === 'robotics'
                             ? 'bg-yellow-200 text-yellow-900'
+                            : material.category === 'event'
+                            ? 'bg-red-500 text-red-200'
                             : 'bg-emerald-100 text-emerald-800'
+
                         }`}
                       >
                         {material.category}
