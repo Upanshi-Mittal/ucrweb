@@ -188,6 +188,17 @@ const Clawclash: React.FC = () => {
       status: 'Confirmed'
     };
 
+    // Optional Google Sheet sync if VITE_GOOGLE_SHEET_URL is configured
+    const sheetWebhookUrl = import.meta.env.VITE_GOOGLE_SHEET_URL;
+    if (sheetWebhookUrl) {
+      fetch(sheetWebhookUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newEntry)
+      }).catch(err => console.warn('Google Sheet sync error:', err));
+    }
+
     if (!isFirebaseConfigured) {
       // Local fallback mode
       const updated = [newEntry, ...registrations.filter(r => r.id !== slotId)];
