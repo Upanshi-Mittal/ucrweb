@@ -111,7 +111,7 @@ const Sac = () => {
                     subtitle: 'Pick and Place bots competitions with crazy twist',
                     image: clawclashImg,
                     dateOrMeta: '2026 event • Arena Battle',
-                    link: '/projects',
+                    link: '/clawclash',
                     angleOffset: 0.25,
                     yOffset: -0.7,
                 },

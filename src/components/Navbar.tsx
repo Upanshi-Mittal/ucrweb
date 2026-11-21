@@ -23,10 +23,10 @@ const Navbar = () => {
     { name: 'About', path: '/about' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'Projects', path: '/projects' },
+    { name: 'ClawClash', path: '/clawclash' },
     { name: 'Team', path: '/team' },
     { name: 'Knowledge Hub', path: '/knowledge' },
     { name: 'Contact', path: '/contact' },
-
   ];
 
   return (
