@@ -383,7 +383,7 @@ const Clawclash: React.FC = () => {
                     </div>
                     <div className="flex items-center justify-between font-semibold">
                       <span className="text-neutral-600">Bot Max Dimensions:</span>
-                      <span className="text-black font-bold">15 X 20 mm</span>
+                      <span className="text-black font-bold">15 X 20 cm</span>
                     </div>
                   </div>
 
