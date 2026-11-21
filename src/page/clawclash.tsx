@@ -674,7 +674,7 @@ const Clawclash: React.FC = () => {
                                 required
                                 value={formData.leaderName}
                                 onChange={handleInputChange}
-                                placeholder="e.g. Arjun Verma"
+                                placeholder="e.g. Shivam Diwaker"
                                 className="w-full px-4 py-2.5 rounded-xl border-2 border-black bg-white text-black text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-black transition-all shadow-[2px_2px_0_black]"
                               />
                             </div>
@@ -693,7 +693,7 @@ const Clawclash: React.FC = () => {
                                 required
                                 value={formData.enrollment}
                                 onChange={handleInputChange}
-                                placeholder="e.g. 23103000"
+                                placeholder="e.g. 2401034232"
                                 className="w-full px-4 py-2.5 rounded-xl border-2 border-black bg-white text-black text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-black transition-all shadow-[2px_2px_0_black]"
                               />
                             </div>
