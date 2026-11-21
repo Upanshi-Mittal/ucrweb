@@ -14,7 +14,9 @@ import {
   Download, 
   Layers,
   RotateCcw,
-  AlertCircle
+  AlertCircle,
+  Maximize2,
+  X
 } from 'lucide-react';
 import Footer from '../components/Footer';
 import clawclashImg from '../assets/clawclash.webp';
@@ -64,6 +66,7 @@ const Clawclash: React.FC = () => {
   const [submittedData, setSubmittedData] = useState<TeamRegistration | null>(null);
   const [activeTab, setActiveTab] = useState<'register' | 'rules' | 'roster'>('register');
   const [isFirebaseLive, setIsFirebaseLive] = useState(false);
+  const [isArenaImgModalOpen, setIsArenaImgModalOpen] = useState(false);
 
   // Check if Firebase is configured via Vite environment variables
   const isFirebaseConfigured = Boolean(
@@ -440,7 +443,7 @@ const Clawclash: React.FC = () => {
                       </div>
                       <div className="text-lg font-black text-black truncate">
                         {formData.groupName.trim() || (
-                          <span className="text-neutral-400 italic font-normal">Enter Group Name below...</span>
+                          <span className="text-neutral-400 italic font-normal">Enter Group Number below...</span>
                         )}
                       </div>
                     </div>
@@ -534,7 +537,7 @@ const Clawclash: React.FC = () => {
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                               <div className="p-3 rounded-xl border-2 border-black/15 bg-neutral-50">
-                                <span className="text-xs font-bold text-neutral-500 uppercase">Registered Group Name</span>
+                                <span className="text-xs font-bold text-neutral-500 uppercase">Registered Group Number</span>
                                 <p className="text-lg font-black text-black mt-0.5">{submittedData.groupName}</p>
                               </div>
                               <div className="p-3 rounded-xl border-2 border-black/15 bg-red-50">
@@ -601,7 +604,7 @@ const Clawclash: React.FC = () => {
                               ClawClash Registration
                             </h2>
                             <p className="text-xs sm:text-sm text-neutral-600">
-                              Submit your group name and robot's name to enter the live arena battle.
+                              Submit your group number and robot's name to enter the live arena battle.
                             </p>
                           </div>
                         </div>
@@ -629,7 +632,7 @@ const Clawclash: React.FC = () => {
                               <label htmlFor="groupName" className="text-black font-bold text-sm mb-1.5 flex items-center justify-between">
                                 <span className="flex items-center gap-1.5">
                                   <Users className="w-4 h-4 text-black" />
-                                  <span>Group Name / Team Name</span>
+                                  <span>Group Number</span>
                                   <span className="text-red-500 font-black">*</span>
                                 </span>
                                 <span className="text-[11px] font-semibold text-neutral-500">e.g. CyberClaws, RoboTitans</span>
@@ -641,7 +644,7 @@ const Clawclash: React.FC = () => {
                                 required
                                 value={formData.groupName}
                                 onChange={handleInputChange}
-                                placeholder="Enter your team or group name..."
+                                placeholder="Enter your team or group number..."
                                 className="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-black text-sm font-semibold placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-black transition-all shadow-[2px_2px_0_black]"
                               />
                             </div>
@@ -802,56 +805,145 @@ const Clawclash: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-8"
             >
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                {/* Rule 1: Arena Specs */}
-                <div className="rounded-2xl border-3 border-black bg-[#fffdf7] p-6 shadow-[5px_5px_0_black]">
-                  <div className="w-12 h-12 rounded-xl border-2 border-black bg-red-500 text-white flex items-center justify-center mb-4 shadow-[2px_2px_0_black]">
-                    <Layers className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold text-black mb-2">1. Arena & Obstacle Course</h3>
-                  <ul className="text-sm text-neutral-700 space-y-2 list-disc list-inside">
-                    <li>Arena footprint: 3.5m x 3.5m textured wood platform.</li>
-                    <li>Ramps, speed bumps, and narrow bridge obstacles.</li>
-                    <li>Starting zone, payload pickup depot, and elevated scoring bins.</li>
-                  </ul>
-                </div>
-
-                {/* Rule 2: Bot Constraints */}
-                <div className="rounded-2xl border-3 border-black bg-[#fffdf7] p-6 shadow-[5px_5px_0_black]">
-                  <div className="w-12 h-12 rounded-xl border-2 border-black bg-yellow-400 text-black flex items-center justify-center mb-4 shadow-[2px_2px_0_black]">
-                    <Bot className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold text-black mb-2">2. Bot Specifications</h3>
-                  <ul className="text-sm text-neutral-700 space-y-2 list-disc list-inside">
-                    <li>Maximum starting dimensions: 30cm x 30cm x 30cm.</li>
-                    <li>Gripper extension permitted during arena operation.</li>
-                    <li>Maximum weight: 3.0 kg including on-board battery.</li>
-                    <li>Onboard battery limit: Max 12.6V (3S LiPo/Li-Ion).</li>
-                  </ul>
-                </div>
-
-                {/* Rule 3: Scoring & Time Trials */}
-                <div className="rounded-2xl border-3 border-black bg-[#fffdf7] p-6 shadow-[5px_5px_0_black]">
-                  <div className="w-12 h-12 rounded-xl border-2 border-black bg-emerald-400 text-black flex items-center justify-center mb-4 shadow-[2px_2px_0_black]">
-                    <Trophy className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold text-black mb-2">3. Scoring System</h3>
-                  <ul className="text-sm text-neutral-700 space-y-2 list-disc list-inside">
-                    <li>Standard Block Deposit: +20 points.</li>
-                    <li>Elevated Zone Bonus Deposit: +40 points.</li>
-                    <li>Penalty for dropping block outside zone: -10 points.</li>
-                    <li>Fastest clear time serves as primary tiebreaker.</li>
-                  </ul>
-                </div>
+              {/* Header explanation */}
+              <div className="text-center max-w-2xl mx-auto space-y-2">
+                <span className="px-3 py-1 rounded-full text-xs font-bold border-2 border-black bg-yellow-400 text-black shadow-[2px_2px_0_black]">
+                  ARENA BLUEPRINT & COMPETITION REGULATIONS
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-black">
+                  Arena Blueprint & Technical Specs
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-600">
+                  Inspect the official arena layout and ensure your robot strictly meets the technical regulations.
+                </p>
               </div>
 
-              {/* Download Rulebook Banner */}
+              {/* SURROUNDING LAYOUT: Arena & Bot cards flanking the central arena picture */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                
+                {/* LEFT: Card 1 (Arena & Obstacles) */}
+                <div className="lg:col-span-3 flex flex-col">
+                  <div className="h-full rounded-2xl border-3 border-black bg-[#fffdf7] p-5 sm:p-6 shadow-[5px_5px_0_black] hover:-translate-y-1 hover:shadow-[5px_5px_0_#facc15] transition-all duration-200 flex flex-col justify-between">
+                    <div>
+                      <div className="w-12 h-12 rounded-xl border-2 border-black bg-red-500 text-white flex items-center justify-center mb-4 shadow-[2px_2px_0_black]">
+                        <Layers className="w-6 h-6" />
+                      </div>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-red-600">RULE 01</span>
+                      <h3 className="text-xl font-bold text-black mb-3">Arena & Obstacles</h3>
+                      <ul className="text-xs sm:text-sm text-neutral-700 space-y-3 list-disc list-inside leading-relaxed">
+                        <li><strong className="text-black">Arena Footprint:</strong> 3.5m × 3.5m textured wooden platform.</li>
+                        <li><strong className="text-black">Boundary Walls:</strong> 10cm safety perimeter walls around track.</li>
+                        <li><strong className="text-black">Obstacles:</strong> Dual speed bumps, ramps, and a narrow center bridge.</li>
+                        <li><strong className="text-black">Payload Depot:</strong> Wooden blocks and target cubes.</li>
+                      </ul>
+                    </div>
+                    <div className="mt-6 pt-3 border-t-2 border-black/10 text-xs font-bold text-neutral-500 flex items-center justify-between">
+                      <span>Field Environment</span>
+                      <span className="text-red-600">Dynamic Obstacle Grid</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CENTER: BIG ARENA PICTURE SHOWCASE (lg:col-span-6) */}
+                <div className="lg:col-span-6 flex flex-col">
+                  <div className="h-full rounded-2xl border-3 border-black bg-[#fffdf7] p-4 sm:p-5 shadow-[7px_7px_0_black] flex flex-col justify-between relative group">
+                    {/* Frame Top Header */}
+                    <div className="flex items-center justify-between border-b-2 border-black/10 pb-3 mb-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-red-500 border border-black" />
+                        <div className="w-3 h-3 rounded-full bg-yellow-400 border border-black" />
+                        <div className="w-3 h-3 rounded-full bg-emerald-500 border border-black" />
+                        <span className="text-xs font-black tracking-wider text-black ml-1 uppercase">
+                          Official Arena Visual & Blueprint
+                        </span>
+                      </div>
+                      <span className="px-2.5 py-0.5 rounded-full border border-black bg-yellow-400 text-black text-[11px] font-bold shadow-[1px_1px_0_black]">
+                        3.5m × 3.5m Field
+                      </span>
+                    </div>
+
+                    {/* BIG Arena Picture Container */}
+                    <div 
+                      onClick={() => setIsArenaImgModalOpen(true)}
+                      className="relative flex-1 min-h-[340px] sm:min-h-[420px] md:min-h-[480px] rounded-xl border-3 border-black overflow-hidden bg-neutral-900 shadow-[4px_4px_0_black] cursor-pointer group/img"
+                    >
+                      <img
+                        src={clawclashImg}
+                        alt="ClawClash Arena Field Overview"
+                        className="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-300"
+                      />
+                      
+                      {/* Gradient overlay for contrast */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/35 pointer-events-none" />
+
+                      {/* Top Badges */}
+                      <div className="absolute top-3 left-3 flex flex-wrap gap-2 pointer-events-none">
+                        <span className="px-3 py-1 rounded-lg border-2 border-black bg-red-600 text-white text-xs font-extrabold shadow-[2px_2px_0_black]">
+                          ARENA COMBAT ZONE
+                        </span>
+                        <span className="px-2.5 py-1 rounded-lg border-2 border-black bg-white/90 backdrop-blur-md text-black text-xs font-bold shadow-[2px_2px_0_black]">
+                          LIVE STAGE
+                        </span>
+                      </div>
+
+                      {/* Enlarge Hint Button */}
+                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg border-2 border-black bg-white/90 text-black text-xs font-bold shadow-[2px_2px_0_black] flex items-center gap-1 group-hover/img:bg-yellow-400 transition-colors">
+                        <Maximize2 className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline">Click to Enlarge</span>
+                      </div>
+
+                      {/* Interactive Zone Markers on the picture */}
+                      <div className="absolute bottom-3 left-3 right-3 flex flex-wrap gap-2 pointer-events-none">
+                        <span className="px-2.5 py-1 rounded-md border border-black bg-yellow-400 text-black text-[11px] font-extrabold shadow-[2px_2px_0_black]">
+                          Zone A: Start & Depot
+                        </span>
+                        <span className="px-2.5 py-1 rounded-md border border-black bg-blue-500 text-white text-[11px] font-extrabold shadow-[2px_2px_0_black]">
+                          Zone B: Obstacle Ramps
+                        </span>
+                        <span className="px-2.5 py-1 rounded-md border border-black bg-emerald-500 text-white text-[11px] font-extrabold shadow-[2px_2px_0_black]">
+                          Zone C: Elevated Drop Depot
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Bottom Caption Bar */}
+                    <div className="mt-3 pt-3 border-t-2 border-black/10 flex items-center justify-between text-xs text-neutral-600">
+                      <span className="font-semibold text-black">Arena Surface: Dual-friction plywood with rubber traction runners</span>
+                      <span className="text-[11px] font-bold text-neutral-500 hidden sm:inline">μCR Lab 2026</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* RIGHT: Card 2 (Bot Specifications) */}
+                <div className="lg:col-span-3 flex flex-col">
+                  <div className="h-full rounded-2xl border-3 border-black bg-[#fffdf7] p-5 sm:p-6 shadow-[5px_5px_0_black] hover:-translate-y-1 hover:shadow-[5px_5px_0_#facc15] transition-all duration-200 flex flex-col justify-between">
+                    <div>
+                      <div className="w-12 h-12 rounded-xl border-2 border-black bg-yellow-400 text-black flex items-center justify-center mb-4 shadow-[2px_2px_0_black]">
+                        <Bot className="w-6 h-6" />
+                      </div>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-amber-900">RULE 02</span>
+                      <h3 className="text-xl font-bold text-black mb-3">Bot Specifications</h3>
+                      <ul className="text-xs sm:text-sm text-neutral-700 space-y-3 list-disc list-inside leading-relaxed">
+                        <li><strong className="text-black">Max Starting Size:</strong> 170 × 220 mm.</li>
+                        <li><strong className="text-black">Expansion:</strong> Allowed only after timer starts.</li>
+                        <li><strong className="text-black">Battery Voltage:</strong> Max 12.6V (3S Li-Ion).</li>
+                      </ul>
+                    </div>
+                    <div className="mt-6 pt-3 border-t-2 border-black/10 text-xs font-bold text-neutral-500 flex items-center justify-between">
+                      <span>Inspection Standard</span>
+                      <span className="text-amber-800">Pre-Match Scrutiny</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Full Rulebook Download Banner */}
               <div className="rounded-2xl border-3 border-black bg-yellow-400 p-6 sm:p-8 shadow-[6px_6px_0_black] flex flex-col sm:flex-row items-center justify-between gap-6">
                 <div>
-                  <h3 className="text-2xl font-black text-black">Need the full ClawClash presentation & rulebook?</h3>
+                  <h3 className="text-2xl font-black text-black">Download Complete ClawClash Presentation </h3>
                   <p className="text-sm text-neutral-800 mt-1 max-w-xl">
-                    Get all circuit schematics, arena dimensions, and match fixtures shared during the initial hub orientation.
+                    Get all obstacle blueprints, track dimensions, electrical guidelines, and fixture schedules in the official PDF.
                   </p>
                 </div>
                 <a
@@ -860,13 +952,12 @@ const Clawclash: React.FC = () => {
                   className="px-6 py-3.5 rounded-xl border-2 border-black bg-white hover:bg-neutral-50 text-black font-extrabold text-sm shadow-[4px_4px_0_black] hover:-translate-y-0.5 transition-all flex items-center gap-2 shrink-0 cursor-pointer"
                 >
                   <Download className="w-5 h-5 text-red-600" />
-                  <span>Download Complete PDF</span>
+                  <span>Download Full PDF</span>
                 </a>
               </div>
             </motion.div>
           )}
 
-          {/* TAB 3: ARENA ROSTER */}
           {activeTab === 'roster' && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -956,6 +1047,74 @@ const Clawclash: React.FC = () => {
 
         </div>
       </section>
+
+      {/* Lightbox Modal for Arena Picture */}
+      <AnimatePresence>
+        {isArenaImgModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
+            onClick={() => setIsArenaImgModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-5xl w-full rounded-2xl border-3 border-black bg-[#fffdf7] overflow-hidden shadow-[8px_8px_0_black]"
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-4 border-b-2 border-black bg-yellow-400">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500 border border-black" />
+                  <div className="w-3 h-3 rounded-full bg-black border border-black" />
+                  <h3 className="font-black text-black text-sm sm:text-base tracking-wide uppercase">
+                    ClawClash Official Arena Blueprint & Combat Zone
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsArenaImgModalOpen(false)}
+                  className="w-8 h-8 rounded-lg border-2 border-black bg-white hover:bg-neutral-100 flex items-center justify-center font-bold text-black shadow-[2px_2px_0_black] cursor-pointer"
+                  aria-label="Close"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Modal Image */}
+              <div className="p-3 bg-neutral-950 flex items-center justify-center max-h-[75vh] overflow-hidden">
+                <img
+                  src={clawclashImg}
+                  alt="ClawClash Arena Full Layout"
+                  className="max-h-[70vh] w-auto object-contain rounded-lg border border-white/20"
+                />
+              </div>
+
+              {/* Modal Footer info */}
+              <div className="p-4 border-t-2 border-black bg-white flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                <div className="flex items-center gap-2 font-bold text-neutral-800">
+                  <span className="px-2 py-0.5 rounded border border-black bg-yellow-400">Zone A: Depot</span>
+                  <span className="px-2 py-0.5 rounded border border-black bg-blue-400 text-white">Zone B: Ramps</span>
+                  <span className="px-2 py-0.5 rounded border border-black bg-emerald-400 text-white">Zone C: Drop Depot</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <a
+                    href={clawclashPdf}
+                    download="Clawclash_Presentation.pdf"
+                    className="px-3 py-1.5 rounded-lg border-2 border-black bg-yellow-400 hover:bg-yellow-500 font-bold text-black shadow-[2px_2px_0_black] flex items-center gap-1.5 text-xs"
+                  >
+                    <Download className="w-3.5 h-3.5 text-black" />
+                    <span>Download Specs PDF</span>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Footer */}
       <Footer />
